@@ -166,7 +166,7 @@
     [data-fade].visible {opacity: 1; transform: translateY(0);}
     .glow-active {
       color: #b6d4e3;
-      text-shadow: 0 0 6px rgba(78,110,129,0.7), 0 0 18px rgba(78,110,129,0.3);
+      text-shadow: 0 0 10px rgba(102,176,216,0.9), 0 0 28px rgba(102,176,216,0.4);
       transition: color 0.25s ease-in-out, text-shadow 0.35s ease-in-out;
     }
 
@@ -262,7 +262,7 @@
       entries.forEach(e=>{
         if(e.isIntersecting){
           e.target.classList.add('glow-active');
-          setTimeout(()=>e.target.classList.remove('glow-active'),900);
+          setTimeout(()=>e.target.classList.remove('glow-active'),1300);
         }
       });
     },{threshold:.4,rootMargin:"-10% 0px -10% 0px"});
@@ -274,7 +274,7 @@
     const canvas=document.getElementById('blueprint');
     const ctx=canvas.getContext('2d');
     let particles=[],mouse={x:null,y:null,radius:100};
-    const particleCount=70;
+    const particleCount=85;
 
     function resize(){
       canvas.width=window.innerWidth;
@@ -312,7 +312,7 @@
           const dx2=p.x-p2.x,dy2=p.y-p2.y;
           const dist2=dx2*dx2+dy2*dy2;
           if(dist2<1500){
-            ctx.strokeStyle=`rgba(78,110,129,0.1)`;
+            ctx.strokeStyle = `rgba(102,176,216,0.18)`;
             ctx.lineWidth=0.5;
             ctx.beginPath();
             ctx.moveTo(p.x,p.y);
