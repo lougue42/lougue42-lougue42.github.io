@@ -2,119 +2,199 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lou Guerrero | Strategy · Tech · Policy</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Lou Guerrero — LMU senior combining strategy, tech, and policy. Full-stack projects, resume, and certificates." />
+  <link rel="icon" href="https://via.placeholder.com/64x64.png?text=L" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Lou Guerrero | Strategy · Tech · Policy" />
+  <meta property="og:description" content="Full-stack projects and policy-minded work by Lou Guerrero." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Lou+Guerrero+Portfolio" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <style>
-    /* Base reset and layout */
-    body {
-      margin: 0;
-      font-family: "Inter", system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: #2d2d2d;
-      overflow: hidden;
-      position: relative;
-      text-align: center;
+    :root{
+      --bg:#fff7f6; --card:#ffffff; --text:#2d2d2d; --muted:#666; --accent:#b17873; --ring:#d7c9c7;
     }
-
-    /* Subtle animated gradient background */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(120deg, #fceeee, #fdf8f6, #f3f1f5);
-      background-size: 400% 400%;
-      animation: gradientShift 12s ease infinite;
-      z-index: -1;
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0f0f10; --card:#17181a; --text:#e9e9ea; --muted:#b1b1b7; --accent:#d6a19c; --ring:#2a2a2e;}
     }
+    [data-theme="dark"]{ --bg:#0f0f10; --card:#17181a; --text:#e9e9ea; --muted:#b1b1b7; --accent:#d6a19c; --ring:#2a2a2e;}
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, #fceeee 0%, var(--bg) 60%);
+      color:var(--text);
+      line-height:1.5;
     }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:980px;margin:0 auto;padding:24px}
+    header{
+      position:sticky; top:0; backdrop-filter:saturate(140%) blur(6px);
+      background:color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom:1px solid var(--ring);
+      z-index:10;
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav a{padding:10px 12px;border-radius:12px}
+    .nav a:hover,.nav a:focus{background:var(--card);outline:none}
+    .theme-toggle{border:1px solid var(--ring);background:var(--card);border-radius:12px;padding:8px 12px;cursor:pointer}
 
-    /* Name textbox style */
-    .name-box {
-      background: rgba(255, 255, 255, 0.6);
+    .hero{display:grid;place-items:center;padding:80px 16px 48px}
+    .name-box{
+      background: color-mix(in srgb, var(--card) 70%, transparent);
       backdrop-filter: blur(8px);
-      padding: 1rem 2.5rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      margin-bottom: 0.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 16px 28px; border:1px solid var(--ring);
+      border-radius:18px; box-shadow:0 6px 18px rgba(0,0,0,.08);
+      transition:transform .2s ease, box-shadow .2s ease;
     }
+    .name-box:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.12)}
+    h1{margin:0;font-size:clamp(28px,5vw,44px);color:var(--accent)}
+    .tag{color:var(--muted);margin-top:10px}
 
-    .name-box:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    .btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
+      background:var(--card); border:1px solid var(--ring); box-shadow:0 2px 6px rgba(0,0,0,.08);
     }
+    .chip:focus,.chip:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,.12); outline:none}
 
-    .name-box h1 {
-      margin: 0;
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: #b17873;
-    }
+    section{padding:56px 16px;border-top:1px solid var(--ring)}
+    .section-title{font-size:22px;margin:0 0 20px}
 
-    p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      color: #555;
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+    .card{
+      background:var(--card); border:1px solid var(--ring); border-radius:16px; padding:16px;
+      display:flex;flex-direction:column;gap:10px
     }
-
-    .links a {
-      text-decoration: none;
-      color: #333;
-      background: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 9999px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .links a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: #555;
-    }
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:12px;border:1px solid var(--ring)}
+    .card .stack{font-size:13px;color:var(--muted)}
+    .links-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid var(--ring);background:transparent}
+    footer{padding:40px 16px;color:var(--muted);text-align:center}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
   </style>
 </head>
 <body>
-  <div class="name-box">
-    <h1>Lou Guerrero</h1>
-  </div>
-  <p>Strategy · Tech · Policy</p>
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <div><a href="#top" class="chip" aria-label="Go to home">Home</a></div>
+      <nav style="display:flex;gap:8px">
+        <a href="#projects">Projects</a>
+        <a href="#resume">Resume</a>
+        <a href="#certs">Certificates</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">Toggle</button>
+    </div>
+  </header>
 
-  <div class="links">
-    <a href="Resume.pdf">📄 View Résumé</a>
-    <a href="Full_Stack_Certificate.pdf">💻 Full Stack Certificate</a>
-    <a href="mailto:louis.guerrero22@gmail.com">📬 Contact</a>
-    <a href="https://github.com/lougue42">🐙 GitHub</a>
-    <a href="https://www.linkedin.com/in/louis-guerrero-94aa9919a">🔗 LinkedIn</a>
-  </div>
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="name">
+      <div class="name-box"><h1 id="name">Lou Guerrero</h1></div>
+      <p class="tag">Strategy · Tech · Policy</p>
+      <div class="btn-row" role="group" aria-label="Primary actions">
+        <a class="chip" href="Louis-Guerrero-2.pdf">📄 View Résumé</a>
+        <a class="chip" href="Full_Stack_Certificate.pdf">💻 Full Stack Certificate</a>
+        <a class="chip" href="mailto:louis.guerrero22@gmail.com">📬 Contact</a>
+        <a class="chip" href="https://github.com/lougue42">🐙 GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/">🔗 LinkedIn</a>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" aria-labelledby="projects-title">
+      <h2 class="section-title" id="projects-title">Selected Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <img src="https://via.placeholder.com/400x200.png?text=Career+Compass" alt="Career Compass app placeholder">
+          <h3>Career Compass</h3>
+          <p>Job-search tracker with AI-assisted next steps. Built for speed and clarity so non-technical users can manage pipelines with confidence.</p>
+          <p class="stack">Next.js · Supabase · Tailwind · Edge Functions</p>
+          <div class="links-row">
+            <a class="pill" href="https://github.com/lougue42">Code</a>
+            <a class="pill" href="#">Demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://via.placeholder.com/400x200.png?text=Sustainability+Ops+Dashboard" alt="Sustainability dashboard placeholder">
+          <h3>Sustainability Ops Dashboard</h3>
+          <p>Automates collection and analysis of emissions, renewable use, and waste KPIs to support policy-driven decisions.</p>
+          <p class="stack">React · Python · FastAPI · Postgres</p>
+          <div class="links-row">
+            <a class="pill" href="#">Code</a>
+            <a class="pill" href="#">Demo</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://via.placeholder.com/400x200.png?text=Flight+Delay+Predictor" alt="Flight delay predictor placeholder">
+          <h3>Flight Delay Predictor</h3>
+          <p>Predicts average Southwest delay at LAX using weather and 20 years of traffic data. Clear UI for non-technical users.</p>
+          <p class="stack">Python · scikit-learn/TF · Flask · SQLite</p>
+          <div class="links-row">
+            <a class="pill" href="#">Code</a>
+            <a class="pill" href="#">Demo</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Resume -->
+    <section id="resume" aria-labelledby="resume-title">
+      <h2 class="section-title" id="resume-title">Resume</h2>
+      <p>Prefer a PDF? <a href="Louis-Guerrero-2.pdf">Download here</a>.</p>
+    </section>
+
+    <!-- Certificates -->
+    <section id="certs" aria-labelledby="certs-title">
+      <h2 class="section-title" id="certs-title">Certificates</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>IBM Full Stack Software Developer</h3>
+          <p>15-course professional certificate covering React, Node, Docker, Kubernetes, CI/CD, and cloud deployment.</p>
+          <div class="links-row">
+            <a class="pill" href="Full_Stack_Certificate.pdf">View PDF</a>
+            <a class="pill" href="https://coursera.org/verify/professional-cert/9MWZEA9LWFKR">Verify</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Get in touch</h2>
+      <div class="btn-row">
+        <a class="chip" href="mailto:louis.guerrero22@gmail.com" aria-label="Email Lou">📬 Email</a>
+        <a class="chip" href="https://github.com/lougue42" aria-label="GitHub profile">🐙 GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" aria-label="LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+    </section>
+  </main>
 
   <footer>© 2025 Lou Guerrero · Built with purpose and hosted on GitHub Pages</footer>
+
+  <script>
+    // Dark mode toggle
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      localStorage.setItem('theme', document.documentElement.getAttribute('data-theme'));
+    });
+    // Persist theme
+    const saved = localStorage.getItem('theme');
+    if(saved){ document.documentElement.setAttribute('data-theme', saved); }
+  </script>
 </body>
 </html>
