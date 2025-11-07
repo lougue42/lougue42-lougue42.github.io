@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lou Guerrero | Portfolio</title>
+  <title>Louis Guerrero | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -15,12 +15,17 @@
       overflow-x: hidden;
     }
 
-    header, section { padding: 60px 20px; text-align: center; border-bottom: 1px solid #2b2f33; }
+    header, section {
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 1px solid #2b2f33;
+    }
     h1, h2 {
       font-family: 'Cormorant Garamond', serif;
       color: #e8eaec;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       letter-spacing: 0.5px;
+      transition: color 0.5s ease, text-shadow 0.5s ease;
     }
     h1 { font-size: 2.8rem; font-weight: 600; }
     h2 { font-size: 1.9rem; font-weight: 500; }
@@ -28,7 +33,7 @@
 
     /* Hero */
     .hero {
-      padding-top: 80px;
+      padding-top: 70px;
     }
     .hero img {
       width: 220px; height: 220px;
@@ -41,21 +46,41 @@
       transition: transform 0.4s ease;
     }
     .hero img:hover { transform: scale(1.04); }
-    .tagline { font-size: 1.1rem; color: #9ca0a3; }
+
+    .tagline {
+      font-size: 1.05rem;
+      color: #a9adb1;
+      letter-spacing: 0.4px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tagline span::after {
+      content: "•";
+      margin: 0 8px;
+      color: #4e6e81;
+    }
+    .tagline span:last-child::after { content: ""; }
 
     /* Contact Buttons */
     .contact-buttons {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
     }
     .btn {
-      background-color: transparent;
+      background-color: #202326;
       border: 1px solid #4e6e81;
       color: #dfe1e2;
       padding: 10px 22px;
       text-decoration: none;
       font-size: 0.95rem;
       letter-spacing: 0.3px;
-      border-radius: 3px;
+      border-radius: 4px;
       transition: all 0.3s ease;
     }
     .btn:hover {
@@ -66,10 +91,16 @@
 
     /* Projects */
     .project-gallery {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
     }
     .project-gallery img {
-      width: 240px; border-radius: 6px; cursor: pointer;
+      width: 240px;
+      border-radius: 6px;
+      cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .project-gallery img:hover {
@@ -78,7 +109,13 @@
     }
 
     /* Chips */
-    .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
     .chip {
       background-color: #1e2124;
       color: #4e6e81;
@@ -90,27 +127,43 @@
 
     /* Certificate Buttons */
     .cert-buttons {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
     }
 
     /* Lightbox */
     .lightbox {
-      position: fixed; top: 0; left: 0;
+      position: fixed;
+      top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.9);
-      display: none; align-items: center; justify-content: center;
+      display: none;
+      align-items: center;
+      justify-content: center;
       z-index: 1000;
     }
     .lightbox-content {
-      max-width: 90%; max-height: 90%;
-      background: #000; padding: 10px; border-radius: 8px;
+      max-width: 90%;
+      max-height: 90%;
+      background: #000;
+      padding: 10px;
+      border-radius: 8px;
     }
     .lightbox iframe, .lightbox img {
-      width: 100%; height: 80vh; border: none; border-radius: 8px;
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 8px;
     }
     .close-btn {
-      position: absolute; top: 25px; right: 35px;
-      font-size: 2rem; color: #fff; cursor: pointer;
+      position: absolute;
+      top: 25px; right: 35px;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
     }
 
     footer {
@@ -121,14 +174,21 @@
       background: #181a1c;
     }
 
-    /* Fade-in */
+    /* Fade + Glow Animation */
     [data-fade] { opacity: 0; transform: translateY(15px); transition: opacity 0.7s, transform 0.7s; }
     [data-fade].visible { opacity: 1; transform: translateY(0); }
 
+    .glow-active {
+      color: #b6d4e3;
+      text-shadow: 0 0 6px rgba(78,110,129,0.7), 0 0 18px rgba(78,110,129,0.3);
+      transition: color 0.25s ease-in-out, text-shadow 0.35s ease-in-out;
+    }
+
     @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      h2 { font-size: 1.5rem; }
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.6rem; }
       .hero img { width: 160px; height: 160px; }
+      .tagline { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -136,16 +196,19 @@
 <body>
   <!-- Hero -->
   <header class="hero" data-fade>
-    <img src="assets/Headshot.jpeg" alt="Lou Guerrero Headshot">
-    <h1>Lou Guerrero</h1>
-    <p class="tagline">Full-Stack Developer | Strategist | Problem Solver</p>
+    <img src="assets/Headshot.jpeg" alt="Louis Guerrero Headshot">
+    <h1>Louis Guerrero</h1>
+    <div class="tagline">
+      <span>Graduating 2026</span>
+      <span>Problem Solver</span>
+      <span>Full-Stack Developer</span>
+    </div>
   </header>
 
   <!-- About -->
   <section id="about" data-fade>
     <h2>About Me</h2>
-    <p>I’m a Los Angeles–based developer and strategist passionate about building thoughtful, functional products that tell a story. My background blends design, technology, and communication — helping bridge the gap between idea and execution.</p>
-    <p><em>"Precision builds trust, and good design tells the truth."</em></p>
+    <p>I’m a senior at Loyola Marymount University in Los Angeles. I’m working toward a career where technology, communication and problem solving come together to create things that are useful and well thought out. I’m especially drawn to roles in product, operations or any space where I can help shape ideas and bring them into the real world.</p>
   </section>
 
   <!-- Contact -->
@@ -168,7 +231,7 @@
       <img src="assets/career-edit.png" alt="Career Compass Edit Feature" onclick="openLightbox('assets/career-edit.png')">
       <img src="assets/career-advanced.png" alt="Career Compass Advanced Settings" onclick="openLightbox('assets/career-advanced.png')">
     </div>
-    <div class="contact-buttons" style="margin-top:25px;">
+    <div class="contact-buttons" style="margin-top:20px;">
       <a href="https://github.com/lougue42/Career-Compass" target="_blank" class="btn">View Source</a>
     </div>
   </section>
@@ -209,11 +272,11 @@
   </div>
 
   <footer>
-    © <span id="year"></span> Lou Guerrero. All rights reserved.
+    © <span id="year"></span> Louis Guerrero. All rights reserved.
   </footer>
 
   <script>
-    // Fade-in
+    // Fade-in on scroll
     const fadeElements = document.querySelectorAll('[data-fade]');
     const fadeIn = () => {
       fadeElements.forEach(el => {
@@ -241,6 +304,20 @@
       lightbox.style.display = 'flex';
     }
     function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+
+    // Section Glow Animation
+    const headers = document.querySelectorAll('h2');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('glow-active');
+          setTimeout(() => entry.target.classList.remove('glow-active'), 900);
+        }
+      });
+    }, { threshold: 0.4 });
+    headers.forEach(h => observer.observe(h));
+
+    // Year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
