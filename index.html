@@ -2,211 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lou Guerrero | Strategy · Tech · Policy</title>
-
-  <meta name="description" content="Lou Guerrero — LMU senior combining strategy, tech, and policy. Full-stack projects, resume, and certificates." />
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#fff7f6">
-  <link rel="icon" href="https://via.placeholder.com/64x64.png?text=L" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lou Guerrero | Portfolio</title>
   <style>
-    :root{
-      --bg:#fff7f6;
-      --card:#ffffff;
-      --text:#2d2d2d;
-      --muted:#666;
-      --accent:#b17873;
-      --ring:#d7c9c7;
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #0e0e0f;
+      color: #d1d1d1;
+      line-height: 1.6;
+    }
+    header, section { padding: 80px 20px; text-align: center; }
+    h1, h2 { color: #4e6e81; margin-bottom: 15px; }
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2rem; margin-top: 20px; }
+    p { max-width: 800px; margin: 10px auto; }
+
+    /* Hero */
+    .hero img {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #4e6e81;
+      margin-bottom: 15px;
+    }
+    .tagline { font-size: 1.2rem; color: #bbb; }
+
+    /* Contact */
+    .contact-buttons {
+      display: flex; justify-content: center; gap: 20px; margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background-color: #4e6e81;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover { background-color: #6b8ea1; }
+
+    /* Projects */
+    .project-gallery {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 25px;
+    }
+    .project-gallery img {
+      width: 250px; height: auto; border-radius: 8px; cursor: pointer;
+      transition: 0.3s;
+    }
+    .project-gallery img:hover { transform: scale(1.05); }
+
+    /* Chips */
+    .chips { display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .chip {
+      background-color: #1a1a1d;
+      color: #4e6e81;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      border: 1px solid #4e6e81;
     }
 
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, #fceeee 0%, var(--bg) 60%);
-      color:var(--text);
-      line-height:1.5;
+    /* Certificates & Resume */
+    .pdf-thumbnails { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 25px; }
+    .pdf-thumb {
+      width: 200px; height: 260px; border-radius: 8px;
+      border: 2px solid #4e6e81; cursor: pointer; transition: 0.3s;
     }
-    a{color:inherit;text-decoration:none;transition:color 0.3s ease;}
-    .container{max-width:980px;margin:0 auto;padding:24px}
-    header{
-      position:sticky; top:0; backdrop-filter:saturate(140%) blur(6px);
-      background:color-mix(in srgb, var(--bg) 85%, transparent);
-      border-bottom:1px solid var(--ring);
-      z-index:10;
-    }
-    .nav{display:flex;align-items:center;justify-content:center;gap:24px}
-    .nav a{padding:10px 12px;border-radius:12px}
-    .nav a:hover,.nav a:focus{background:var(--card);outline:none}
+    .pdf-thumb:hover { transform: scale(1.05); }
 
-    .hero{display:grid;place-items:center;padding:80px 16px 48px;text-align:center;}
-    .headshot{
-      width:140px;
-      height:140px;
-      object-fit:cover;
-      object-position:50% 25%;
-      border-radius:50%;
-      border:2px solid var(--ring);
-      box-shadow:0 4px 10px rgba(0,0,0,0.15);
-      margin-bottom:18px;
-      transition:transform 0.2s ease, box-shadow 0.2s ease;
-      cursor:pointer;
+    /* Lightbox */
+    .lightbox {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000;
     }
-    .headshot:hover{
-      transform:scale(1.03);
-      box-shadow:0 6px 16px rgba(0,0,0,0.25);
+    .lightbox-content {
+      max-width: 90%; max-height: 90%;
+      background: #000; padding: 10px;
+      border-radius: 8px;
+    }
+    .lightbox iframe, .lightbox img {
+      width: 100%; height: 80vh; border: none; border-radius: 8px;
+    }
+    .close-btn {
+      position: absolute; top: 20px; right: 30px;
+      font-size: 2rem; color: #fff; cursor: pointer;
     }
 
-    .name-box{
-      background: color-mix(in srgb, var(--card) 70%, transparent);
-      backdrop-filter: blur(8px);
-      padding: 16px 28px; border:1px solid var(--ring);
-      border-radius:18px; box-shadow:0 6px 18px rgba(0,0,0,.08);
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #2a2a2a;
     }
-    h1{margin:0;font-size:clamp(28px,5vw,44px);color:var(--accent);}
-    .tag{color:var(--muted);margin-top:10px}
 
-    .btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
-    .chip{
-      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
-      background:var(--card); border:1px solid var(--ring);
-      box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .2s ease;
-    }
-    .chip:focus,.chip:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.12);outline:none;}
-
-    section{padding:56px 16px;border-top:1px solid var(--ring)}
-    .section-title{font-size:22px;margin:0 0 20px}
-    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
-    .card{
-      background:var(--card);border:1px solid var(--ring);
-      border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;
-    }
-    .card .stack{font-size:13px;color:var(--muted);}
-    footer{padding:40px 16px;color:var(--muted);text-align:center;}
-
-    .main-img{
-      width:100%;border-radius:12px;border:1px solid var(--ring);
-      margin-bottom:12px;cursor:pointer;transition:transform .2s ease;
-    }
-    .main-img:hover{transform:scale(1.02);}
-    .thumb-row{
-      display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;
-    }
-    .thumb-row img{
-      width:31%;min-width:160px;border-radius:8px;border:1px solid var(--ring);
-      cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .thumb-row img:hover{transform:scale(1.04);box-shadow:0 4px 10px rgba(0,0,0,0.15);}
-    #lightbox{
-      position:fixed;display:none;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,0.8);justify-content:center;align-items:center;
-      z-index:9999;padding:20px;
-    }
-    #lightbox img{
-      max-width:100%;max-height:100%;
-      border-radius:8px;box-shadow:0 0 20px rgba(0,0,0,0.5);
-    }
-    #lightbox img[src*="Headshot"] {
-      border-radius:50%;
-      max-width:400px;
-      max-height:400px;
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .project-gallery img { width: 100%; max-width: 320px; }
+      .pdf-thumb { width: 150px; height: 200px; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <a href="#top">Home</a>
-      <a href="#contact">Contact</a>
-      <a href="#projects">Projects</a>
-      <a href="#resume">Resume</a>
-      <a href="#certs">Certificates</a>
-    </div>
+  <!-- Hero -->
+  <header class="hero">
+    <img src="assets/Headshot.jpeg" alt="Lou Guerrero Headshot">
+    <h1>Lou Guerrero</h1>
+    <p class="tagline">Full-Stack Developer | Strategist | Builder of Ideas</p>
   </header>
 
-  <main id="top" class="container">
-    <section class="hero">
-      <img src="assets/Headshot.jpeg" alt="Photo of Lou Guerrero" class="headshot" onclick="openImage(this.src)">
-      <div class="name-box"><h1>Lou Guerrero</h1></div>
-      <p class="tag">Strategy · Tech · Policy</p>
-      <div class="btn-row">
-        <a class="chip" href="Resume.pdf">📄 View Résumé</a>
-        <a class="chip" href="Full_Stack_Certificate.pdf">💻 Full Stack Certificate</a>
-        <a class="chip" href="AI_Fundamentals_Certificate.pdf">🤖 AI Fundamentals Certificate</a>
-        <a class="chip" href="mailto:louis.guerrero22@gmail.com">📬 Contact</a>
-        <a class="chip" href="https://github.com/lougue42">🐙 GitHub</a>
-        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/">🔗 LinkedIn</a>
-      </div>
-    </section>
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm a Los Angeles–based developer and strategist passionate about building tools that connect people and ideas. My work blends technology, design, and storytelling to create functional yet meaningful digital experiences.</p>
+    <p><em>"Code is art that speaks in logic."</em></p>
+  </section>
 
-    <section id="contact">
-      <h2 class="section-title">Get in Touch</h2>
-      <div class="btn-row">
-        <a class="chip" href="mailto:louis.guerrero22@gmail.com">📬 Email</a>
-        <a class="chip" href="https://github.com/lougue42">🐙 GitHub</a>
-        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/">🔗 LinkedIn</a>
-      </div>
-    </section>
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-buttons">
+      <a href="mailto:louis.guerrero22@gmail.com" class="btn">Email</a>
+      <a href="https://github.com/lougue42" class="btn" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" class="btn" target="_blank">LinkedIn</a>
+    </div>
+  </section>
 
-    <section id="projects">
-      <h2 class="section-title">Selected Project</h2>
-      <div class="grid">
-        <article class="card">
-          <img src="assets/career-main.png" alt="Career Compass main dashboard" class="main-img" onclick="openImage(this.src)">
-          <h3>Career Compass</h3>
-          <p>Career Compass is a full-stack job-tracking platform designed to help users organize and accelerate their job search. It includes AI-assisted recommendations for next steps and progress visualization for each application pipeline.</p>
-          <p class="stack">Next.js · Supabase · Tailwind · Edge Functions</p>
-          <div class="thumb-row">
-            <img src="assets/career-add.png" alt="Add Application modal" onclick="openImage(this.src)">
-            <img src="assets/career-edit.png" alt="Edit Application modal" onclick="openImage(this.src)">
-            <img src="assets/career-advanced.png" alt="Advanced Settings modal" onclick="openImage(this.src)">
-          </div>
-        </article>
-      </div>
-    </section>
+  <!-- Projects -->
+  <section id="projects">
+    <h2>Career Compass</h2>
+    <p>A full-stack web app designed to streamline job tracking and career management with AI-driven insights. Built using Next.js, Supabase, and Tailwind.</p>
+    <div class="project-gallery">
+      <img src="assets/career-main.png" alt="Career Compass Dashboard" onclick="openLightbox('assets/career-main.png')">
+      <img src="assets/career-add.png" alt="Add Job Feature" onclick="openLightbox('assets/career-add.png')">
+      <img src="assets/career-edit.png" alt="Edit Feature" onclick="openLightbox('assets/career-edit.png')">
+      <img src="assets/career-advanced.png" alt="Advanced Settings" onclick="openLightbox('assets/career-advanced.png')">
+    </div>
+    <div class="contact-buttons" style="margin-top:25px;">
+      <a href="https://lougue42.github.io/Career-Compass/" class="btn" target="_blank">Demo</a>
+      <a href="https://github.com/lougue42/Career-Compass" class="btn" target="_blank">Source</a>
+    </div>
+  </section>
 
-    <section id="resume">
-      <h2 class="section-title">Resume</h2>
-      <p>Prefer a PDF? <a href="Resume.pdf">Download here</a>.</p>
-    </section>
+  <!-- Dog Walking -->
+  <section id="dogwalking">
+    <h2>Dog Walking Business</h2>
+    <p>I started a small dog-walking business to combine responsibility, consistency, and care — the same principles I bring to my work. It taught me how to build client trust and manage operations efficiently.</p>
+    <div class="chips">
+      <div class="chip">20+ Clients</div>
+      <div class="chip">5-Star Reviews</div>
+      <div class="chip">Local Neighborhood Focus</div>
+    </div>
+  </section>
 
-    <section id="certs">
-      <h2 class="section-title">Certificates</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>IBM Full Stack Software Developer</h3>
-          <p>15-course professional certificate covering React, Node, Docker, Kubernetes, CI/CD, and cloud deployment.</p>
-          <div class="links-row">
-            <a class="pill" href="Full_Stack_Certificate.pdf">View PDF</a>
-            <a class="pill" href="https://coursera.org/verify/professional-cert/9MWZEA9LWFKR">Verify</a>
-          </div>
-        </article>
+  <!-- Certificates -->
+  <section id="certificates">
+    <h2>Certificates</h2>
+    <div class="pdf-thumbnails">
+      <img src="assets/career-main.png" class="pdf-thumb" alt="Full Stack Certificate" onclick="openLightbox('Full_Stack_Certificate.pdf')">
+      <img src="assets/career-add.png" class="pdf-thumb" alt="AI Fundamentals Certificate" onclick="openLightbox('AI_Fundamentals_Certificate.pdf')">
+    </div>
+  </section>
 
-        <article class="card">
-          <h3>AI Fundamentals for Non-Data Scientists</h3>
-          <p>Completed through the Wharton School of Business (University of Pennsylvania). Covered key AI concepts, applications, and ethical considerations for non-technical professionals.</p>
-          <div class="links-row">
-            <a class="pill" href="AI_Fundamentals_Certificate.pdf">View PDF</a>
-            <a class="pill" href="https://coursera.org/verify/GR97GAZGICA5">Verify</a>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
+  <!-- Resume -->
+  <section id="resume">
+    <h2>Resume</h2>
+    <div class="pdf-thumbnails">
+      <img src="assets/career-edit.png" class="pdf-thumb" alt="Resume Preview" onclick="openLightbox('Resume.pdf')">
+    </div>
+    <div class="contact-buttons" style="margin-top:20px;">
+      <a href="Resume.pdf" target="_blank" class="btn">Open Resume</a>
+    </div>
+  </section>
 
-  <footer> Lou Guerrero </footer>
-
-  <div id="lightbox" onclick="this.style.display='none'">
-    <img src="" alt="Expanded image">
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="close-btn" onclick="closeLightbox()">×</span>
+    <div class="lightbox-content" id="lightbox-content"></div>
   </div>
+
+  <footer>
+    <p>© <span id="year"></span> Lou Guerrero. All rights reserved.</p>
+  </footer>
+
   <script>
-    function openImage(src) {
+    function openLightbox(src) {
       const lightbox = document.getElementById('lightbox');
-      const img = lightbox.querySelector('img');
-      img.src = src;
+      const content = document.getElementById('lightbox-content');
+      content.innerHTML = '';
+      if (src.endsWith('.pdf')) {
+        const iframe = document.createElement('iframe');
+        iframe.src = src;
+        content.appendChild(iframe);
+      } else {
+        const img = document.createElement('img');
+        img.src = src;
+        content.appendChild(img);
+      }
       lightbox.style.display = 'flex';
     }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
