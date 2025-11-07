@@ -37,7 +37,6 @@
       background: radial-gradient(1200px 600px at 50% -10%, #fceeee 0%, var(--bg) 60%);
       color:var(--text);
       line-height:1.5;
-      transition: background 0.3s ease, color 0.3s ease;
     }
     a{color:inherit;text-decoration:none;transition:color 0.3s ease;}
     .container{max-width:980px;margin:0 auto;padding:24px}
@@ -52,7 +51,18 @@
     .nav a:hover,.nav a:focus{background:var(--card);outline:none}
 
     /* HERO */
-    .hero{display:grid;place-items:center;padding:80px 16px 48px}
+    .hero{display:grid;place-items:center;padding:80px 16px 48px;text-align:center;}
+    .headshot{
+      width:140px;height:140px;object-fit:cover;
+      border-radius:50%;border:2px solid var(--ring);
+      box-shadow:0 4px 10px rgba(0,0,0,0.15);
+      margin-bottom:18px;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .headshot:hover{
+      transform:scale(1.03);
+      box-shadow:0 6px 16px rgba(0,0,0,0.25);
+    }
     .name-box{
       background: color-mix(in srgb, var(--card) 70%, transparent);
       backdrop-filter: blur(8px);
@@ -61,7 +71,7 @@
       transition:transform .2s ease, box-shadow .2s ease;
     }
     .name-box:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.12)}
-    h1{margin:0;font-size:clamp(28px,5vw,44px);color:var(--accent);transition:color 0.3s ease;}
+    h1{margin:0;font-size:clamp(28px,5vw,44px);color:var(--accent);}
     .tag{color:var(--muted);margin-top:10px}
 
     /* BUTTONS */
@@ -90,15 +100,13 @@
       background:var(--card); border:1px solid var(--ring);
       border-radius:16px; padding:16px;
       display:flex;flex-direction:column;gap:10px;
-      transition: background 0.3s ease, border-color 0.3s ease;
     }
     .card .stack{font-size:13px;color:var(--muted)}
-    footer{padding:40px 16px;color:var(--muted);text-align:center;transition:color 0.3s ease;}
+    footer{padding:40px 16px;color:var(--muted);text-align:center;}
 
     /* Gallery */
     .main-img {
       width: 100%;
-      height: auto;
       border-radius: 12px;
       border: 1px solid var(--ring);
       margin-bottom: 12px;
@@ -158,6 +166,7 @@
 
   <main id="top" class="container">
     <section class="hero" aria-labelledby="name">
+      <img src="assets/headshot.jpg" alt="Photo of Lou Guerrero" class="headshot">
       <div class="name-box"><h1 id="name">Lou Guerrero</h1></div>
       <p class="tag">Strategy · Tech · Policy</p>
       <div class="btn-row" role="group" aria-label="Primary actions">
@@ -170,13 +179,13 @@
       </div>
     </section>
 
-    <!-- Contact high on page -->
+    <!-- Contact -->
     <section id="contact" aria-labelledby="contact-title">
       <h2 class="section-title" id="contact-title">Get in Touch</h2>
       <div class="btn-row">
-        <a class="chip" href="mailto:louis.guerrero22@gmail.com" aria-label="Email Lou">📬 Email</a>
-        <a class="chip" href="https://github.com/lougue42" aria-label="GitHub profile">🐙 GitHub</a>
-        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" aria-label="LinkedIn profile">🔗 LinkedIn</a>
+        <a class="chip" href="mailto:louis.guerrero22@gmail.com">📬 Email</a>
+        <a class="chip" href="https://github.com/lougue42">🐙 GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/">🔗 LinkedIn</a>
       </div>
     </section>
 
@@ -185,13 +194,12 @@
       <h2 class="section-title" id="projects-title">Selected Project</h2>
       <div class="grid">
         <article class="card">
-          <!-- Main image opens lightbox -->
           <img src="assets/career-main.png" alt="Career Compass main dashboard" class="main-img" onclick="openImage(this.src)">
           <h3>Career Compass</h3>
           <p>Career Compass is a full-stack job-tracking platform designed to help users organize and accelerate their job search. It includes AI-assisted recommendations for next steps and progress visualization for each application pipeline.</p>
           <p class="stack">Next.js · Supabase · Tailwind · Edge Functions</p>
 
-          <!-- Thumbnail Gallery -->
+          <!-- Thumbnails -->
           <div class="thumb-row">
             <img src="assets/career-add.png" alt="Add Application modal" onclick="openImage(this.src)">
             <img src="assets/career-edit.png" alt="Edit Application modal" onclick="openImage(this.src)">
@@ -234,7 +242,7 @@
 
   <footer>© 2025 Lou Guerrero · Built with purpose and hosted on GitHub Pages</footer>
 
-  <!-- Lightbox HTML + JS -->
+  <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img src="" alt="Expanded image">
   </div>
