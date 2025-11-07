@@ -9,17 +9,37 @@
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at center, #1c1e21 0%, #181a1c 80%);
       color: #d4d6d7;
       line-height: 1.6;
       overflow-x: hidden;
+      background: #111214;
+      position: relative;
     }
 
-    header, section {
-      padding: 50px 20px;
-      text-align: center;
-      border-bottom: 1px solid #2b2f33;
+    /* --- Geometric animated background --- */
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2;
     }
+    body::before {
+      background: radial-gradient(circle at 20% 20%, #1c1e21, #0f1012 80%);
+    }
+    body::after {
+      background: linear-gradient(120deg, rgba(78,110,129,0.15) 0%, rgba(102,176,216,0.1) 50%, rgba(30,32,34,0.15) 100%);
+      mix-blend-mode: overlay;
+      animation: sweep 15s ease-in-out infinite alternate;
+    }
+    @keyframes sweep {
+      0% { transform: translateX(-10%) translateY(-10%) rotate(0deg); opacity: 0.7; }
+      50% { transform: translateX(5%) translateY(5%) rotate(3deg); opacity: 0.9; }
+      100% { transform: translateX(-10%) translateY(-10%) rotate(0deg); opacity: 0.7; }
+    }
+
+    /* --- Section styling --- */
+    header, section { padding: 50px 20px; text-align: center; border-bottom: 1px solid #2b2f33; }
     h1, h2 {
       font-family: 'Cormorant Garamond', serif;
       color: #e8eaec;
@@ -31,15 +51,12 @@
     h2 { font-size: 1.9rem; font-weight: 500; }
     p { max-width: 700px; margin: 10px auto; font-size: 1.02rem; }
 
-    /* Hero */
-    .hero {
-      padding-top: 70px;
-    }
+    /* --- Hero --- */
+    .hero { padding-top: 70px; }
     .hero img {
       width: 220px; height: 220px;
       border-radius: 50%;
-      object-fit: cover;
-      object-position: top center;
+      object-fit: cover; object-position: top center;
       border: 2px solid #4e6e81;
       box-shadow: 0 0 25px rgba(78,110,129,0.25);
       margin-bottom: 15px;
@@ -58,19 +75,13 @@
       margin-top: 10px;
     }
     .tagline span::after {
-      content: "•";
-      margin: 0 8px;
-      color: #4e6e81;
+      content: "•"; margin: 0 8px; color: #4e6e81;
     }
     .tagline span:last-child::after { content: ""; }
 
-    /* Contact Buttons */
-    .contact-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 25px;
+    /* --- Buttons --- */
+    .contact-buttons, .cert-buttons {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 25px;
     }
     .btn {
       background-color: #202326;
@@ -89,18 +100,12 @@
       box-shadow: 0 0 12px rgba(78,110,129,0.6);
     }
 
-    /* Projects */
+    /* --- Project gallery --- */
     .project-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;
     }
     .project-gallery img {
-      width: 240px;
-      border-radius: 6px;
-      cursor: pointer;
+      width: 240px; border-radius: 6px; cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .project-gallery img:hover {
@@ -108,14 +113,8 @@
       box-shadow: 0 0 15px rgba(78,110,129,0.4);
     }
 
-    /* Chips */
-    .chips {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
+    /* --- Chips --- */
+    .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .chip {
       background-color: #1e2124;
       color: #4e6e81;
@@ -125,56 +124,22 @@
       font-size: 0.85rem;
     }
 
-    /* Certificate Buttons */
-    .cert-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    /* Lightbox */
+    /* --- Lightbox --- */
     .lightbox {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 1000;
     }
-    .lightbox-content {
-      max-width: 90%;
-      max-height: 90%;
-      background: #000;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .lightbox iframe, .lightbox img {
-      width: 100%;
-      height: 80vh;
-      border: none;
-      border-radius: 8px;
-    }
+    .lightbox-content { max-width: 90%; max-height: 90%; background: #000; padding: 10px; border-radius: 8px; }
+    .lightbox iframe, .lightbox img { width: 100%; height: 80vh; border: none; border-radius: 8px; }
     .close-btn {
-      position: absolute;
-      top: 25px; right: 35px;
-      font-size: 2rem;
-      color: #fff;
-      cursor: pointer;
+      position: absolute; top: 25px; right: 35px; font-size: 2rem; color: #fff; cursor: pointer;
     }
 
     footer {
-      text-align: center;
-      padding: 25px;
-      font-size: 0.85rem;
-      color: #777;
-      background: #181a1c;
+      text-align: center; padding: 25px; font-size: 0.85rem; color: #777; background: #181a1c;
     }
 
-    /* Fade + Glow Animation */
+    /* --- Animations --- */
     [data-fade] { opacity: 0; transform: translateY(15px); transition: opacity 0.7s, transform 0.7s; }
     [data-fade].visible { opacity: 1; transform: translateY(0); }
 
@@ -276,7 +241,6 @@
   </footer>
 
   <script>
-    // Fade-in on scroll
     const fadeElements = document.querySelectorAll('[data-fade]');
     const fadeIn = () => {
       fadeElements.forEach(el => {
@@ -287,7 +251,6 @@
     window.addEventListener('scroll', fadeIn);
     fadeIn();
 
-    // Lightbox
     function openLightbox(src) {
       const lightbox = document.getElementById('lightbox');
       const content = document.getElementById('lightbox-content');
@@ -305,7 +268,6 @@
     }
     function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 
-    // Section Glow Animation
     const headers = document.querySelectorAll('h2');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -317,7 +279,6 @@
     }, { threshold: 0.4 });
     headers.forEach(h => observer.observe(h));
 
-    // Year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
