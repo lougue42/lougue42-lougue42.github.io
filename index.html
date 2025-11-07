@@ -51,8 +51,13 @@
       box-shadow:0 4px 10px rgba(0,0,0,0.15);
       margin-bottom:18px;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
+      cursor:pointer;
     }
-    .headshot:hover{transform:scale(1.03);box-shadow:0 6px 16px rgba(0,0,0,0.25);}
+    .headshot:hover{
+      transform:scale(1.03);
+      box-shadow:0 6px 16px rgba(0,0,0,0.25);
+    }
+
     .name-box{
       background: color-mix(in srgb, var(--card) 70%, transparent);
       backdrop-filter: blur(8px);
@@ -102,6 +107,11 @@
       max-width:100%;max-height:100%;
       border-radius:8px;box-shadow:0 0 20px rgba(0,0,0,0.5);
     }
+    #lightbox img[src*="Headshot"] {
+      border-radius:50%;
+      max-width:400px;
+      max-height:400px;
+    }
   </style>
 </head>
 <body>
@@ -117,7 +127,7 @@
 
   <main id="top" class="container">
     <section class="hero">
-      <img src="assets/Headshot.jpeg" alt="Photo of Lou Guerrero" class="headshot">
+      <img src="assets/Headshot.jpeg" alt="Photo of Lou Guerrero" class="headshot" onclick="openImage(this.src)">
       <div class="name-box"><h1>Lou Guerrero</h1></div>
       <p class="tag">Strategy · Tech · Policy</p>
       <div class="btn-row">
