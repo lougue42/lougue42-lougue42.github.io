@@ -5,21 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lou Guerrero | Strategy · Tech · Policy</title>
 
-  <!-- SEO -->
   <meta name="description" content="Lou Guerrero — LMU senior combining strategy, tech, and policy. Full-stack projects, resume, and certificates." />
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#fff7f6">
   <link rel="icon" href="https://via.placeholder.com/64x64.png?text=L" />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Lou Guerrero | Strategy · Tech · Policy" />
-  <meta property="og:description" content="Full-stack projects and policy-minded work by Lou Guerrero." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Lou+Guerrero+Portfolio" />
-  <meta name="twitter:card" content="summary_large_image" />
-
   <style>
-    /* THEME COLORS (locked to light) */
     :root{
       --bg:#fff7f6;
       --card:#ffffff;
@@ -29,7 +20,6 @@
       --ring:#d7c9c7;
     }
 
-    /* BASE LAYOUT */
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
@@ -50,112 +40,73 @@
     .nav a{padding:10px 12px;border-radius:12px}
     .nav a:hover,.nav a:focus{background:var(--card);outline:none}
 
-    /* HERO */
     .hero{display:grid;place-items:center;padding:80px 16px 48px;text-align:center;}
     .headshot{
-      width:140px;height:140px;object-fit:cover;
-      border-radius:50%;border:2px solid var(--ring);
+      width:140px;
+      height:140px;
+      object-fit:cover;
+      object-position:50% 25%;
+      border-radius:50%;
+      border:2px solid var(--ring);
       box-shadow:0 4px 10px rgba(0,0,0,0.15);
       margin-bottom:18px;
       transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .headshot:hover{
-      transform:scale(1.03);
-      box-shadow:0 6px 16px rgba(0,0,0,0.25);
-    }
+    .headshot:hover{transform:scale(1.03);box-shadow:0 6px 16px rgba(0,0,0,0.25);}
     .name-box{
       background: color-mix(in srgb, var(--card) 70%, transparent);
       backdrop-filter: blur(8px);
       padding: 16px 28px; border:1px solid var(--ring);
       border-radius:18px; box-shadow:0 6px 18px rgba(0,0,0,.08);
-      transition:transform .2s ease, box-shadow .2s ease;
     }
-    .name-box:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(0,0,0,.12)}
     h1{margin:0;font-size:clamp(28px,5vw,44px);color:var(--accent);}
     .tag{color:var(--muted);margin-top:10px}
 
-    /* BUTTONS */
     .btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
     .chip{
       display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
       background:var(--card); border:1px solid var(--ring);
       box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .2s ease;
     }
-    .chip:focus,.chip:hover{
-      transform:translateY(-2px);
-      box-shadow:0 6px 14px rgba(0,0,0,.12);
-      outline:none;
-    }
+    .chip:focus,.chip:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.12);outline:none;}
 
-    /* SECTIONS */
     section{padding:56px 16px;border-top:1px solid var(--ring)}
     .section-title{font-size:22px;margin:0 0 20px}
-
-    /* PROJECT CARD */
-    .grid{
-      display:grid; gap:16px;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
     .card{
-      background:var(--card); border:1px solid var(--ring);
-      border-radius:16px; padding:16px;
-      display:flex;flex-direction:column;gap:10px;
+      background:var(--card);border:1px solid var(--ring);
+      border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;
     }
-    .card .stack{font-size:13px;color:var(--muted)}
+    .card .stack{font-size:13px;color:var(--muted);}
     footer{padding:40px 16px;color:var(--muted);text-align:center;}
 
-    /* Gallery */
-    .main-img {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid var(--ring);
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
+    .main-img{
+      width:100%;border-radius:12px;border:1px solid var(--ring);
+      margin-bottom:12px;cursor:pointer;transition:transform .2s ease;
     }
-    .main-img:hover { transform: scale(1.02); }
-
-    .thumb-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 8px;
-      flex-wrap: wrap;
+    .main-img:hover{transform:scale(1.02);}
+    .thumb-row{
+      display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;
     }
-    .thumb-row img {
-      width: 31%;
-      min-width: 160px;
-      border-radius: 8px;
-      border: 1px solid var(--ring);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    .thumb-row img{
+      width:31%;min-width:160px;border-radius:8px;border:1px solid var(--ring);
+      cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;
     }
-    .thumb-row img:hover {
-      transform: scale(1.04);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    .thumb-row img:hover{transform:scale(1.04);box-shadow:0 4px 10px rgba(0,0,0,0.15);}
+    #lightbox{
+      position:fixed;display:none;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.8);justify-content:center;align-items:center;
+      z-index:9999;padding:20px;
     }
-
-    /* Lightbox */
-    #lightbox {
-      position: fixed;
-      display: none;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      justify-content: center; align-items: center;
-      z-index: 9999;
-      padding: 20px;
-    }
-    #lightbox img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    #lightbox img{
+      max-width:100%;max-height:100%;
+      border-radius:8px;box-shadow:0 0 20px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="container nav" role="navigation" aria-label="Primary">
+    <div class="container nav">
       <a href="#top">Home</a>
       <a href="#contact">Contact</a>
       <a href="#projects">Projects</a>
@@ -165,11 +116,11 @@
   </header>
 
   <main id="top" class="container">
-    <section class="hero" aria-labelledby="name">
+    <section class="hero">
       <img src="assets/Headshot.jpeg" alt="Photo of Lou Guerrero" class="headshot">
-      <div class="name-box"><h1 id="name">Lou Guerrero</h1></div>
+      <div class="name-box"><h1>Lou Guerrero</h1></div>
       <p class="tag">Strategy · Tech · Policy</p>
-      <div class="btn-row" role="group" aria-label="Primary actions">
+      <div class="btn-row">
         <a class="chip" href="Resume.pdf">📄 View Résumé</a>
         <a class="chip" href="Full_Stack_Certificate.pdf">💻 Full Stack Certificate</a>
         <a class="chip" href="AI_Fundamentals_Certificate.pdf">🤖 AI Fundamentals Certificate</a>
@@ -179,9 +130,8 @@
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-title">
-      <h2 class="section-title" id="contact-title">Get in Touch</h2>
+    <section id="contact">
+      <h2 class="section-title">Get in Touch</h2>
       <div class="btn-row">
         <a class="chip" href="mailto:louis.guerrero22@gmail.com">📬 Email</a>
         <a class="chip" href="https://github.com/lougue42">🐙 GitHub</a>
@@ -189,17 +139,14 @@
       </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects" aria-labelledby="projects-title">
-      <h2 class="section-title" id="projects-title">Selected Project</h2>
+    <section id="projects">
+      <h2 class="section-title">Selected Project</h2>
       <div class="grid">
         <article class="card">
           <img src="assets/career-main.png" alt="Career Compass main dashboard" class="main-img" onclick="openImage(this.src)">
           <h3>Career Compass</h3>
           <p>Career Compass is a full-stack job-tracking platform designed to help users organize and accelerate their job search. It includes AI-assisted recommendations for next steps and progress visualization for each application pipeline.</p>
           <p class="stack">Next.js · Supabase · Tailwind · Edge Functions</p>
-
-          <!-- Thumbnails -->
           <div class="thumb-row">
             <img src="assets/career-add.png" alt="Add Application modal" onclick="openImage(this.src)">
             <img src="assets/career-edit.png" alt="Edit Application modal" onclick="openImage(this.src)">
@@ -209,15 +156,13 @@
       </div>
     </section>
 
-    <!-- Resume -->
-    <section id="resume" aria-labelledby="resume-title">
-      <h2 class="section-title" id="resume-title">Resume</h2>
+    <section id="resume">
+      <h2 class="section-title">Resume</h2>
       <p>Prefer a PDF? <a href="Resume.pdf">Download here</a>.</p>
     </section>
 
-    <!-- Certificates -->
-    <section id="certs" aria-labelledby="certs-title">
-      <h2 class="section-title" id="certs-title">Certificates</h2>
+    <section id="certs">
+      <h2 class="section-title">Certificates</h2>
       <div class="grid">
         <article class="card">
           <h3>IBM Full Stack Software Developer</h3>
@@ -240,9 +185,8 @@
     </section>
   </main>
 
-  <footer>© 2025 Lou Guerrero · Built with purpose and hosted on GitHub Pages</footer>
+  <footer> Lou Guerrero </footer>
 
-  <!-- Lightbox -->
   <div id="lightbox" onclick="this.style.display='none'">
     <img src="" alt="Expanded image">
   </div>
