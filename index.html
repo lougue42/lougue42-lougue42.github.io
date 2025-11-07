@@ -92,21 +92,67 @@
       display:flex;flex-direction:column;gap:10px;
       transition: background 0.3s ease, border-color 0.3s ease;
     }
-    .card img{width:100%;height:150px;object-fit:cover;border-radius:12px;border:1px solid var(--ring)}
     .card .stack{font-size:13px;color:var(--muted)}
-    .links-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-    .pill{padding:8px 12px;border-radius:999px;border:1px solid var(--ring);background:transparent}
     footer{padding:40px 16px;color:var(--muted);text-align:center;transition:color 0.3s ease;}
+
+    /* Gallery */
+    .main-img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--ring);
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .main-img:hover { transform: scale(1.02); }
+
+    .thumb-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .thumb-row img {
+      width: 31%;
+      min-width: 160px;
+      border-radius: 8px;
+      border: 1px solid var(--ring);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .thumb-row img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      display: none;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center; align-items: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+    #lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav" role="navigation" aria-label="Primary">
       <a href="#top">Home</a>
+      <a href="#contact">Contact</a>
       <a href="#projects">Projects</a>
       <a href="#resume">Resume</a>
       <a href="#certs">Certificates</a>
-      <a href="#contact">Contact</a>
     </div>
   </header>
 
@@ -124,18 +170,32 @@
       </div>
     </section>
 
+    <!-- Contact high on page -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 class="section-title" id="contact-title">Get in Touch</h2>
+      <div class="btn-row">
+        <a class="chip" href="mailto:louis.guerrero22@gmail.com" aria-label="Email Lou">📬 Email</a>
+        <a class="chip" href="https://github.com/lougue42" aria-label="GitHub profile">🐙 GitHub</a>
+        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" aria-label="LinkedIn profile">🔗 LinkedIn</a>
+      </div>
+    </section>
+
     <!-- Projects -->
     <section id="projects" aria-labelledby="projects-title">
       <h2 class="section-title" id="projects-title">Selected Project</h2>
       <div class="grid">
         <article class="card">
-          <img src="https://via.placeholder.com/400x200.png?text=Career+Compass" alt="Career Compass app placeholder">
+          <!-- Main image opens lightbox -->
+          <img src="assets/career-main.png" alt="Career Compass main dashboard" class="main-img" onclick="openImage(this.src)">
           <h3>Career Compass</h3>
           <p>Career Compass is a full-stack job-tracking platform designed to help users organize and accelerate their job search. It includes AI-assisted recommendations for next steps and progress visualization for each application pipeline.</p>
           <p class="stack">Next.js · Supabase · Tailwind · Edge Functions</p>
-          <div class="links-row">
-            <a class="pill" href="https://github.com/lougue42">Code</a>
-            <a class="pill" href="#">Demo</a>
+
+          <!-- Thumbnail Gallery -->
+          <div class="thumb-row">
+            <img src="assets/career-add.png" alt="Add Application modal" onclick="openImage(this.src)">
+            <img src="assets/career-edit.png" alt="Edit Application modal" onclick="openImage(this.src)">
+            <img src="assets/career-advanced.png" alt="Advanced Settings modal" onclick="openImage(this.src)">
           </div>
         </article>
       </div>
@@ -170,18 +230,21 @@
         </article>
       </div>
     </section>
-
-    <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-title">
-      <h2 class="section-title" id="contact-title">Get in touch</h2>
-      <div class="btn-row">
-        <a class="chip" href="mailto:louis.guerrero22@gmail.com" aria-label="Email Lou">📬 Email</a>
-        <a class="chip" href="https://github.com/lougue42" aria-label="GitHub profile">🐙 GitHub</a>
-        <a class="chip" href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" aria-label="LinkedIn profile">🔗 LinkedIn</a>
-      </div>
-    </section>
   </main>
 
   <footer>© 2025 Lou Guerrero · Built with purpose and hosted on GitHub Pages</footer>
+
+  <!-- Lightbox HTML + JS -->
+  <div id="lightbox" onclick="this.style.display='none'">
+    <img src="" alt="Expanded image">
+  </div>
+  <script>
+    function openImage(src) {
+      const lightbox = document.getElementById('lightbox');
+      const img = lightbox.querySelector('img');
+      img.src = src;
+      lightbox.style.display = 'flex';
+    }
+  </script>
 </body>
 </html>
