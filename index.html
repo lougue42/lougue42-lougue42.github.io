@@ -6,190 +6,121 @@
   <title>Louis Guerrero | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      color: #d4d6d7;
-      line-height: 1.6;
-      overflow-x: hidden;
-      background: #111214;
-      position: relative;
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+    body{
+      font-family:'Inter',sans-serif;
+      color:#d4d6d7;
+      line-height:1.6;
+      overflow-x:hidden;
+      background:#0f1012;
+      position:relative;
     }
 
-    /* --- Layered animated background --- */
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -2;
+    /* --- Low-poly animated background --- */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+        linear-gradient(130deg,#141519,#191c20),
+        repeating-linear-gradient(60deg,rgba(255,255,255,0.02) 0 1px,transparent 1px 60px),
+        repeating-linear-gradient(-60deg,rgba(255,255,255,0.02) 0 1px,transparent 1px 60px);
+      background-blend-mode:overlay;
+      animation:drift 25s ease-in-out infinite alternate;
     }
-
-    /* Grid layer */
-    body::before {
-      background-color: #111214;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    /* Moving gradient light layer */
-    body::after {
-      background: linear-gradient(120deg, rgba(78,110,129,0.3) 0%, rgba(102,176,216,0.2) 50%, rgba(30,32,34,0.3) 100%);
-      mix-blend-mode: overlay;
-      animation: sweep 15s ease-in-out infinite alternate;
-    }
-
-    @keyframes sweep {
-      0% { transform: translateX(-8%) translateY(-8%) rotate(0deg); opacity: 0.8; }
-      50% { transform: translateX(8%) translateY(8%) rotate(10deg); opacity: 1; }
-      100% { transform: translateX(-8%) translateY(-8%) rotate(0deg); opacity: 0.8; }
+    @keyframes drift{
+      0%{background-position:0 0,0 0,0 0;}
+      50%{background-position:40px 20px,30px 50px,-40px -20px;}
+      100%{background-position:0 0,0 0,0 0;}
     }
 
     /* --- Section styling --- */
-    header, section {
-      padding: 50px 20px;
-      text-align: center;
-      border-bottom: 1px solid #2b2f33;
+    header,section{padding:50px 20px;text-align:center;border-bottom:1px solid #2b2f33;}
+    h1,h2{
+      font-family:'Cormorant Garamond',serif;
+      color:#e8eaec;
+      letter-spacing:0.5px;
+      transition:color .5s ease,text-shadow .5s ease;
     }
-    h1, h2 {
-      font-family: 'Cormorant Garamond', serif;
-      color: #e8eaec;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-      transition: color 0.5s ease, text-shadow 0.5s ease;
-    }
-    h1 { font-size: 2.8rem; font-weight: 600; }
-    h2 { font-size: 1.9rem; font-weight: 500; }
-    p { max-width: 700px; margin: 10px auto; font-size: 1.02rem; }
+    h1{font-size:2.8rem;font-weight:600;margin-bottom:8px;}
+    h2{font-size:1.9rem;font-weight:500;margin-bottom:8px;}
+    p{max-width:700px;margin:10px auto;font-size:1.02rem;}
 
     /* --- Hero --- */
-    .hero { padding-top: 70px; }
-    .hero img {
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      object-fit: cover; object-position: top center;
-      border: 2px solid #4e6e81;
-      box-shadow: 0 0 25px rgba(78,110,129,0.25);
-      margin-bottom: 15px;
-      transition: transform 0.4s ease;
+    .hero{padding-top:70px;}
+    .hero img{
+      width:220px;height:220px;border-radius:50%;
+      object-fit:cover;object-position:top center;
+      border:2px solid #4e6e81;
+      box-shadow:0 0 25px rgba(78,110,129,0.25);
+      margin-bottom:15px;
+      transition:transform .4s ease;
     }
-    .hero img:hover { transform: scale(1.04); }
-
-    .tagline {
-      font-size: 1.05rem;
-      color: #a9adb1;
-      letter-spacing: 0.4px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
+    .hero img:hover{transform:scale(1.04);}
+    .tagline{
+      font-size:1.05rem;color:#a9adb1;letter-spacing:.4px;
+      display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:10px;
     }
-    .tagline span::after {
-      content: "•"; margin: 0 8px; color: #4e6e81;
-    }
-    .tagline span:last-child::after { content: ""; }
+    .tagline span::after{content:"•";margin:0 8px;color:#4e6e81;}
+    .tagline span:last-child::after{content:"";}
 
     /* --- Buttons --- */
-    .contact-buttons, .cert-buttons {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 25px;
+    .contact-buttons,.cert-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:25px;}
+    .btn{
+      background-color:#202326;border:1px solid #4e6e81;color:#dfe1e2;
+      padding:10px 22px;text-decoration:none;font-size:.95rem;letter-spacing:.3px;border-radius:4px;
+      transition:all .3s ease;
     }
-    .btn {
-      background-color: #202326;
-      border: 1px solid #4e6e81;
-      color: #dfe1e2;
-      padding: 10px 22px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #4e6e81;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(78,110,129,0.6);
-    }
+    .btn:hover{background-color:#4e6e81;color:#fff;box-shadow:0 0 12px rgba(78,110,129,.6);}
 
-    /* --- Project gallery --- */
-    .project-gallery {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;
-    }
-    .project-gallery img {
-      width: 240px; border-radius: 6px; cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .project-gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(78,110,129,0.4);
-    }
+    /* --- Projects --- */
+    .project-gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:20px;}
+    .project-gallery img{width:240px;border-radius:6px;cursor:pointer;transition:transform .3s,box-shadow .3s;}
+    .project-gallery img:hover{transform:scale(1.05);box-shadow:0 0 15px rgba(78,110,129,.4);}
 
     /* --- Chips --- */
-    .chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .chip {
-      background-color: #1e2124;
-      color: #4e6e81;
-      padding: 5px 12px;
-      border-radius: 14px;
-      border: 1px solid #4e6e81;
-      font-size: 0.85rem;
-    }
+    .chips{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:10px;}
+    .chip{background-color:#1e2124;color:#4e6e81;padding:5px 12px;border-radius:14px;border:1px solid #4e6e81;font-size:.85rem;}
 
     /* --- Lightbox --- */
-    .lightbox {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 1000;
-    }
-    .lightbox-content { max-width: 90%; max-height: 90%; background: #000; padding: 10px; border-radius: 8px; }
-    .lightbox iframe, .lightbox img { width: 100%; height: 80vh; border: none; border-radius: 8px; }
-    .close-btn {
-      position: absolute; top: 25px; right: 35px; font-size: 2rem; color: #fff; cursor: pointer;
-    }
+    .lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1000;}
+    .lightbox-content{max-width:90%;max-height:90%;background:#000;padding:10px;border-radius:8px;}
+    .lightbox iframe,.lightbox img{width:100%;height:80vh;border:none;border-radius:8px;}
+    .close-btn{position:absolute;top:25px;right:35px;font-size:2rem;color:#fff;cursor:pointer;}
 
-    footer {
-      text-align: center; padding: 25px; font-size: 0.85rem; color: #777; background: #181a1c;
-    }
+    footer{text-align:center;padding:25px;font-size:.85rem;color:#777;background:#181a1c;}
 
     /* --- Animations --- */
-    [data-fade] { opacity: 0; transform: translateY(15px); transition: opacity 0.7s, transform 0.7s; }
-    [data-fade].visible { opacity: 1; transform: translateY(0); }
-
-    .glow-active {
-      color: #b6d4e3;
-      text-shadow: 0 0 6px rgba(78,110,129,0.7), 0 0 18px rgba(78,110,129,0.3);
-      transition: color 0.25s ease-in-out, text-shadow 0.35s ease-in-out;
+    [data-fade]{opacity:0;transform:translateY(15px);transition:opacity .7s,transform .7s;}
+    [data-fade].visible{opacity:1;transform:translateY(0);}
+    .glow-active{
+      color:#b6d4e3;
+      text-shadow:0 0 6px rgba(78,110,129,.7),0 0 18px rgba(78,110,129,.3);
+      transition:color .25s,text-shadow .35s;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      h2 { font-size: 1.6rem; }
-      .hero img { width: 160px; height: 160px; }
-      .tagline { font-size: 0.95rem; }
+    @media(max-width:600px){
+      h1{font-size:2.2rem;}h2{font-size:1.6rem;}
+      .hero img{width:160px;height:160px;}
+      .tagline{font-size:.95rem;}
     }
   </style>
 </head>
-
 <body>
-  <!-- Hero -->
   <header class="hero" data-fade>
     <img src="assets/Headshot.jpeg" alt="Louis Guerrero Headshot">
     <h1>Louis Guerrero</h1>
     <div class="tagline">
-      <span>Graduating 2026</span>
-      <span>Problem Solver</span>
-      <span>Full-Stack Developer</span>
+      <span>Graduating 2026</span><span>Problem Solver</span><span>Full-Stack Developer</span>
     </div>
   </header>
 
-  <!-- About -->
   <section id="about" data-fade>
     <h2>About Me</h2>
     <p>I’m a senior at Loyola Marymount University in Los Angeles. I’m working toward a career where technology, communication and problem solving come together to create things that are useful and well thought out. I’m especially drawn to roles in product, operations or any space where I can help shape ideas and bring them into the real world.</p>
   </section>
 
-  <!-- Contact -->
   <section id="contact" data-fade>
     <h2>Contact</h2>
     <div class="contact-buttons">
@@ -199,7 +130,6 @@
     </div>
   </section>
 
-  <!-- Projects -->
   <section id="projects" data-fade>
     <h2>Career Compass</h2>
     <p>A full-stack web app designed to help users organize job applications and career progress. Built with Next.js, Supabase, and Tailwind for seamless performance and intuitive UX.</p>
@@ -214,18 +144,14 @@
     </div>
   </section>
 
-  <!-- Dog Walking -->
   <section id="dogwalking" data-fade>
     <h2>Dog Walking Business</h2>
     <p>My first entrepreneurial step — running a small neighborhood dog-walking business taught me the foundations of consistency, trust, and operational problem-solving.</p>
     <div class="chips">
-      <div class="chip">20+ Clients</div>
-      <div class="chip">5-Star Reviews</div>
-      <div class="chip">Community-Built</div>
+      <div class="chip">20+ Clients</div><div class="chip">5-Star Reviews</div><div class="chip">Community-Built</div>
     </div>
   </section>
 
-  <!-- Certificates -->
   <section id="certificates" data-fade>
     <h2>Certificates</h2>
     <div class="cert-buttons">
@@ -235,7 +161,6 @@
     </div>
   </section>
 
-  <!-- Resume -->
   <section id="resume" data-fade>
     <h2>Resume</h2>
     <div class="cert-buttons">
@@ -243,56 +168,44 @@
     </div>
   </section>
 
-  <!-- Lightbox -->
   <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="close-btn" onclick="closeLightbox()">×</span>
     <div id="lightbox-content" class="lightbox-content"></div>
   </div>
 
-  <footer>
-    © <span id="year"></span> Louis Guerrero. All rights reserved.
-  </footer>
+  <footer>© <span id="year"></span> Louis Guerrero. All rights reserved.</footer>
 
   <script>
-    const fadeElements = document.querySelectorAll('[data-fade]');
-    const fadeIn = () => {
-      fadeElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 60) el.classList.add('visible');
-      });
-    };
-    window.addEventListener('scroll', fadeIn);
-    fadeIn();
+    const fadeElements=document.querySelectorAll('[data-fade]');
+    const fadeIn=()=>fadeElements.forEach(el=>{
+      const rect=el.getBoundingClientRect();
+      if(rect.top<window.innerHeight-60)el.classList.add('visible');
+    });
+    window.addEventListener('scroll',fadeIn);fadeIn();
 
-    function openLightbox(src) {
-      const lightbox = document.getElementById('lightbox');
-      const content = document.getElementById('lightbox-content');
-      content.innerHTML = '';
-      if (src.endsWith('.pdf')) {
-        const iframe = document.createElement('iframe');
-        iframe.src = src;
-        content.appendChild(iframe);
-      } else {
-        const img = document.createElement('img');
-        img.src = src;
-        content.appendChild(img);
-      }
-      lightbox.style.display = 'flex';
+    function openLightbox(src){
+      const l=document.getElementById('lightbox');
+      const c=document.getElementById('lightbox-content');
+      c.innerHTML='';
+      if(src.endsWith('.pdf')){const i=document.createElement('iframe');i.src=src;c.appendChild(i);}
+      else{const im=document.createElement('img');im.src=src;c.appendChild(im);}
+      l.style.display='flex';
     }
-    function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+    function closeLightbox(){document.getElementById('lightbox').style.display='none';}
 
-    const headers = document.querySelectorAll('h2');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('glow-active');
-          setTimeout(() => entry.target.classList.remove('glow-active'), 900);
+    /* --- Two-way scroll glow --- */
+    const headers=document.querySelectorAll('h2');
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('glow-active');
+          setTimeout(()=>e.target.classList.remove('glow-active'),900);
         }
       });
-    }, { threshold: 0.4 });
-    headers.forEach(h => observer.observe(h));
+    },{threshold:.4,rootMargin:"-10% 0px -10% 0px"});
+    headers.forEach(h=>observer.observe(h));
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
