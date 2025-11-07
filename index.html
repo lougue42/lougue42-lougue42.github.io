@@ -17,14 +17,25 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
+    /* THEME COLORS */
     :root{
       --bg:#fff7f6; --card:#ffffff; --text:#2d2d2d; --muted:#666; --accent:#b17873; --ring:#d7c9c7;
     }
+
+    /* Respect OS setting on first load */
     @media (prefers-color-scheme: dark){
       :root{ --bg:#0f0f10; --card:#17181a; --text:#e9e9ea; --muted:#b1b1b7; --accent:#d6a19c; --ring:#2a2a2e;}
     }
-    [data-theme="dark"]{ --bg:#0f0f10; --card:#17181a; --text:#e9e9ea; --muted:#b1b1b7; --accent:#d6a19c; --ring:#2a2a2e;}
 
+    /* Explicit overrides for manual toggle */
+    [data-theme="light"]{
+      --bg:#fff7f6; --card:#ffffff; --text:#2d2d2d; --muted:#666; --accent:#b17873; --ring:#d7c9c7;
+    }
+    [data-theme="dark"]{
+      --bg:#0f0f10; --card:#17181a; --text:#e9e9ea; --muted:#b1b1b7; --accent:#d6a19c; --ring:#2a2a2e;
+    }
+
+    /* LAYOUT + TYPOGRAPHY */
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
@@ -44,7 +55,14 @@
     .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .nav a{padding:10px 12px;border-radius:12px}
     .nav a:hover,.nav a:focus{background:var(--card);outline:none}
-    .theme-toggle{border:1px solid var(--ring);background:var(--card);border-radius:12px;padding:8px 12px;cursor:pointer}
+    .theme-toggle{
+      border:1px solid var(--ring);
+      background:var(--card);
+      border-radius:12px;
+      padding:8px 12px;
+      cursor:pointer;
+      font-size:14px;
+    }
 
     .hero{display:grid;place-items:center;padding:80px 16px 48px}
     .name-box{
@@ -94,7 +112,7 @@
         <a href="#certs">Certificates</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">Toggle</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Toggle Theme</button>
     </div>
   </header>
 
@@ -184,17 +202,35 @@
 
   <footer>© 2025 Lou Guerrero · Built with purpose and hosted on GitHub Pages</footer>
 
+  <!-- DARK/LIGHT MODE SCRIPT -->
   <script>
-    // Dark mode toggle
+    // Initialize theme
+    (function initTheme(){
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+        updateToggleLabel(saved);
+        return;
+      }
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const start = prefersDark ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', start);
+      localStorage.setItem('theme', start);
+      updateToggleLabel(start);
+    })();
+
     const btn = document.getElementById('themeToggle');
+    function updateToggleLabel(theme){
+      btn.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+    }
+
     btn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
-      document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-      localStorage.setItem('theme', document.documentElement.getAttribute('data-theme'));
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateToggleLabel(next);
     });
-    // Persist theme
-    const saved = localStorage.getItem('theme');
-    if(saved){ document.documentElement.setAttribute('data-theme', saved); }
   </script>
 </body>
 </html>
