@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Louis Guerrero | Portfolio</title>
+  <meta name="description" content="Louis Guerrero | Full Stack Developer & Political Science major at Loyola Marymount University. Experienced in React, Node.js, Python, and Cloud Deployment.">
+  <meta name="keywords" content="Louis Guerrero, Full Stack Developer, React, Node.js, Python, LMU, Cloud, Software Engineer Portfolio">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * {margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;}
@@ -16,7 +18,38 @@
       position: relative;
     }
 
-    /* ---------- Intelligent Blueprint Background ---------- */
+    /* ---------- Navigation ---------- */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15,16,18,0.85);
+      backdrop-filter: blur(8px);
+      padding: 10px 0;
+      z-index: 100;
+    }
+    nav div {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    nav a {
+      background: none;
+      color: #b6d4e3;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      border: 1px solid #4e6e81;
+      background-color: #1c1f22;
+      box-shadow: 0 0 8px rgba(78,110,129,0.3);
+    }
+
+    /* ---------- Background ---------- */
     canvas {
       position: fixed;
       top: 0; left: 0;
@@ -27,11 +60,10 @@
 
     /* ---------- Sections ---------- */
     header, section {
-      padding: 50px 20px;
+      padding: 70px 20px;
       text-align: center;
       border-bottom: 1px solid #2b2f33;
     }
-
     h1, h2 {
       font-family: 'Cormorant Garamond', serif;
       color: #e8eaec;
@@ -43,7 +75,7 @@
     p {max-width: 700px; margin: 10px auto; font-size: 1.02rem;}
 
     /* ---------- Hero ---------- */
-    .hero {padding-top: 70px;}
+    .hero {padding-top: 110px;}
     .hero img {
       width: 220px; height: 220px;
       border-radius: 50%;
@@ -55,15 +87,10 @@
       transition: transform 0.4s ease;
     }
     .hero img:hover {transform: scale(1.04);}
-
     .tagline {
       font-size: 1.05rem;
       color: #a9adb1;
-      letter-spacing: 0.4px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
       margin-top: 10px;
     }
     .tagline span::after {content: "•"; margin: 0 8px; color: #4e6e81;}
@@ -71,11 +98,7 @@
 
     /* ---------- Buttons ---------- */
     .contact-buttons, .cert-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 25px;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 25px;
     }
     .btn {
       background-color: #202326;
@@ -94,31 +117,17 @@
     }
 
     /* ---------- Gallery ---------- */
-    .project-gallery {
-      display: flex; flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
+    .project-gallery {display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;}
     .project-gallery img {
       width: 240px;
       border-radius: 6px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .project-gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(78,110,129,0.4);
-    }
+    .project-gallery img:hover {transform: scale(1.05); box-shadow: 0 0 15px rgba(78,110,129,0.4);}
 
     /* ---------- Chips ---------- */
-    .chips {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
+    .chips {display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px;}
     .chip {
       background-color: #1e2124;
       color: #4e6e81;
@@ -129,52 +138,24 @@
     }
 
     /* ---------- Lightbox ---------- */
-    .lightbox {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .lightbox-content {
-      max-width: 90%; max-height: 90%;
-      background: #000;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .lightbox iframe, .lightbox img {
-      width: 100%; height: 80vh;
-      border: none; border-radius: 8px;
-    }
-    .close-btn {
-      position: absolute; top: 25px; right: 35px;
-      font-size: 2rem; color: #fff; cursor: pointer;
-    }
+    .lightbox {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; z-index: 1000;}
+    .lightbox-content {max-width: 90%; max-height: 90%; background: #000; padding: 10px; border-radius: 8px;}
+    .lightbox iframe, .lightbox img {width: 100%; height: 80vh; border: none; border-radius: 8px;}
+    .close-btn {position: absolute; top: 25px; right: 35px; font-size: 2rem; color: #fff; cursor: pointer;}
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      font-size: 0.85rem;
-      color: #777;
-      background: #181a1c;
-    }
+    footer {text-align: center; padding: 25px; font-size: 0.85rem; color: #777; background: #181a1c;}
 
     /* ---------- Animations ---------- */
     [data-fade] {opacity: 0; transform: translateY(15px); transition: opacity 0.7s, transform 0.7s;}
     [data-fade].visible {opacity: 1; transform: translateY(0);}
-    .glow-active {
-      color: #b6d4e3;
-      text-shadow: 0 0 10px rgba(102,176,216,0.9), 0 0 28px rgba(102,176,216,0.4);
-      transition: color 0.25s ease-in-out, text-shadow 0.35s ease-in-out;
-    }
+    .glow-active {color: #b6d4e3; text-shadow: 0 0 10px rgba(102,176,216,0.9), 0 0 28px rgba(102,176,216,0.4); transition: color 0.25s ease-in-out, text-shadow 0.35s ease-in-out;}
 
     @media (max-width: 600px) {
       h1 {font-size: 2.2rem;}
       h2 {font-size: 1.6rem;}
       .hero img {width: 160px; height: 160px;}
       .tagline {font-size: 0.95rem;}
+      nav div {gap: 8px;}
     }
   </style>
 </head>
@@ -182,11 +163,20 @@
 <body>
   <canvas id="blueprint"></canvas>
 
+  <nav>
+    <div>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#resume">Resume</a>
+    </div>
+  </nav>
+
   <header class="hero" data-fade>
     <img src="assets/Headshot.jpeg" alt="Louis Guerrero Headshot">
     <h1>Louis Guerrero</h1>
     <div class="tagline">
-      <span>Graduating 2026</span>
+      <span>B.A. Political Science, LMU ’26</span>
       <span>Problem Solver</span>
       <span>Full-Stack Developer</span>
     </div>
@@ -194,15 +184,23 @@
 
   <section id="about" data-fade>
     <h2>About Me</h2>
-    <p>I’m a senior at Loyola Marymount University in Los Angeles. I’m working toward a career where technology, communication and problem solving come together to create things that are useful and well thought out. I’m especially drawn to roles in product, operations or any space where I can help shape ideas and bring them into the real world.</p>
+    <p>I’m a Political Science senior at Loyola Marymount University who builds technology that solves real operational problems. My background bridges strategy, communication, and full-stack development — skills I’ve applied from launching <em>Career Compass</em> to scaling marketing operations at Klarako. I’m driven by making systems smoother, smarter, and more human.</p>
   </section>
 
-  <section id="contact" data-fade>
-    <h2>Contact</h2>
-    <div class="contact-buttons">
-      <a href="mailto:louis.guerrero22@gmail.com" class="btn">Email</a>
-      <a href="https://github.com/lougue42" target="_blank" class="btn">GitHub</a>
-      <a href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" target="_blank" class="btn">LinkedIn</a>
+  <section id="skills" data-fade>
+    <h2>Technical Focus</h2>
+    <div class="chips">
+      <div class="chip">JavaScript</div>
+      <div class="chip">React</div>
+      <div class="chip">Node.js</div>
+      <div class="chip">Python</div>
+      <div class="chip">Django</div>
+      <div class="chip">Docker</div>
+      <div class="chip">Kubernetes</div>
+      <div class="chip">SQL</div>
+      <div class="chip">CI/CD</div>
+      <div class="chip">Microservices</div>
+      <div class="chip">Cloud Deployment</div>
     </div>
   </section>
 
@@ -216,26 +214,24 @@
       <img src="assets/career-advanced.png" alt="Career Compass Advanced Settings" onclick="openLightbox('assets/career-advanced.png')">
     </div>
     <div class="contact-buttons" style="margin-top:20px;">
-      <a href="https://github.com/lougue42/careercompass/blob/main/README.md" target="_blank" class="btn">View Source</a>
+      <a href="https://github.com/lougue42/careercompass/blob/main/README.md" target="_blank" class="btn">Explore Project on GitHub</a>
     </div>
   </section>
 
-  <section id="dogwalking" data-fade>
-    <h2>Dog Walking Business</h2>
-    <p>My first entrepreneurial step — running a small neighborhood dog-walking business taught me the foundations of consistency, trust, and operational problem-solving.</p>
-    <div class="chips">
-      <div class="chip">20+ Clients</div>
-      <div class="chip">5-Star Reviews</div>
-      <div class="chip">Community-Built</div>
-    </div>
+  <section id="experience" data-fade>
+    <h2>Recent Experience</h2>
+    <p><strong>Marketing & Business Development Intern – Klarako</strong> (Jun–Sep 2025)<br>
+    Built Klarako’s digital presence from the ground up, generating 170K+ impressions in three months. Supported outreach strategy, brand storytelling, and partnership growth.</p>
+    <p><strong>Distribution Center Associate – Loyola Marymount University</strong> (Sep 2022–Present)<br>
+    Manage 1,000+ package deliveries per week and train new staff to streamline campus logistics.</p>
   </section>
 
   <section id="certificates" data-fade>
     <h2>Certificates</h2>
     <div class="cert-buttons">
-      <a href="Full_Stack_Certificate.pdf" target="_blank" class="btn">View Full Stack Certificate</a>
+      <a href="Full_Stack_Certificate.pdf" target="_blank" class="btn">IBM Full-Stack Software Developer</a>
       <a href="https://coursera.org/verify/professional-cert/9MWZEA9LWFKR" target="_blank" class="btn">Verify on Coursera</a>
-      <a href="AI_Fundamentals_Certificate.pdf" target="_blank" class="btn">View AI Fundamentals Certificate</a>
+      <a href="AI_Fundamentals_Certificate.pdf" target="_blank" class="btn">Wharton AI Fundamentals</a>
     </div>
   </section>
 
@@ -246,42 +242,39 @@
     </div>
   </section>
 
+  <section id="contact" data-fade>
+    <h2>Let’s Connect</h2>
+    <p>I’m always open to opportunities that merge strategy, technology, and creativity. Reach out — I’d love to chat.</p>
+    <div class="contact-buttons">
+      <a href="mailto:louis.guerrero22@gmail.com" class="btn">Email</a>
+      <a href="https://github.com/lougue42" target="_blank" class="btn">GitHub</a>
+      <a href="https://www.linkedin.com/in/louis-guerrero-94aa9919a/" target="_blank" class="btn">LinkedIn</a>
+    </div>
+  </section>
+
   <footer>© <span id="year"></span> Louis Guerrero. All rights reserved.</footer>
 
   <script>
-    /* ---------- Fade & Glow ---------- */
     const fadeEls=document.querySelectorAll('[data-fade]');
     const fadeIn=()=>fadeEls.forEach(el=>{
       const rect=el.getBoundingClientRect();
       if(rect.top<window.innerHeight-60)el.classList.add('visible');
     });
     window.addEventListener('scroll',fadeIn);fadeIn();
-
     const headers=document.querySelectorAll('h2');
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add('glow-active');
-          setTimeout(()=>e.target.classList.remove('glow-active'),1300);
-        }
+        if(e.isIntersecting){e.target.classList.add('glow-active');setTimeout(()=>e.target.classList.remove('glow-active'),1300);}
       });
     },{threshold:.4,rootMargin:"-10% 0px -10% 0px"});
     headers.forEach(h=>observer.observe(h));
-
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    /* ---------- Interactive Blueprint Particles ---------- */
     const canvas=document.getElementById('blueprint');
     const ctx=canvas.getContext('2d');
     let particles=[],mouse={x:null,y:null,radius:100};
     const particleCount=85;
-
-    function resize(){
-      canvas.width=window.innerWidth;
-      canvas.height=window.innerHeight;
-      initParticles();
-    }
-
+    function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;initParticles();}
     function initParticles(){
       particles=[];
       for(let i=0;i<particleCount;i++){
@@ -292,27 +285,23 @@
         particles.push({x,y,vx,vy});
       }
     }
-
     function draw(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       for(let i=0;i<particleCount;i++){
         const p=particles[i];
         ctx.beginPath();
-        const dx=mouse.x-p.x;
-        const dy=mouse.y-p.y;
+        const dx=mouse.x-p.x; const dy=mouse.y-p.y;
         const dist=Math.sqrt(dx*dx+dy*dy);
         const alpha=dist<mouse.radius?0.5:0.2;
         ctx.fillStyle=`rgba(102,176,216,${alpha})`;
         ctx.arc(p.x,p.y,1.8,0,Math.PI*2);
         ctx.fill();
-
-        // Connect nearby particles
         for(let j=i;j<particleCount;j++){
           const p2=particles[j];
           const dx2=p.x-p2.x,dy2=p.y-p2.y;
           const dist2=dx2*dx2+dy2*dy2;
           if(dist2<1500){
-            ctx.strokeStyle = `rgba(102,176,216,0.18)`;
+            ctx.strokeStyle=`rgba(102,176,216,0.18)`;
             ctx.lineWidth=0.5;
             ctx.beginPath();
             ctx.moveTo(p.x,p.y);
@@ -320,21 +309,16 @@
             ctx.stroke();
           }
         }
-
-        // Motion
-        p.x+=p.vx;
-        p.y+=p.vy;
+        p.x+=p.vx; p.y+=p.vy;
         if(p.x<0||p.x>canvas.width)p.vx*=-1;
         if(p.y<0||p.y>canvas.height)p.vy*=-1;
       }
       requestAnimationFrame(draw);
     }
-
     window.addEventListener('mousemove',e=>{mouse.x=e.x;mouse.y=e.y;});
     window.addEventListener('mouseout',()=>{mouse.x=null;mouse.y=null;});
     window.addEventListener('resize',resize);
-    resize();
-    draw();
+    resize(); draw();
   </script>
 </body>
 </html>
