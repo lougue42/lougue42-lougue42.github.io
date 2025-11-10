@@ -103,13 +103,34 @@
       box-shadow: 0 0 12px rgba(78,110,129,0.6);
     }
 
-    /* ---------- Chips ---------- */
-    .chips {display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px;}
-    .chip {
-      background-color: #1e2124; color: #4e6e81;
-      padding: 5px 12px; border-radius: 14px;
-      border: 1px solid #4e6e81; font-size: 0.85rem;
-    }
+   /* ---------- Chips ---------- */
+.chips {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.chip {
+  background: linear-gradient(145deg, rgba(78,110,129,0.22), rgba(78,110,129,0.08));
+  color: #d8e8f3;
+  padding: 7px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(78,110,129,0.4);
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(78,110,129,0.1);
+  backdrop-filter: blur(2px);
+}
+
+.chip:hover {
+  background: linear-gradient(145deg, rgba(102,176,216,0.4), rgba(78,110,129,0.25));
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(102,176,216,0.45), 0 0 30px rgba(78,110,129,0.25);
+  transform: translateY(-2px);
+}
 
     /* ---------- Gallery ---------- */
     .project-gallery {display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;}
