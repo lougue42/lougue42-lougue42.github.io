@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * {margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth;}
+    html {scroll-behavior: smooth;}
     body {
       font-family: 'Inter', sans-serif;
       color: #d4d6d7;
@@ -21,27 +22,17 @@
     /* ---------- Navigation ---------- */
     nav {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; width: 100%;
       background: rgba(15,16,18,0.85);
       backdrop-filter: blur(8px);
       padding: 10px 0;
       z-index: 100;
     }
-    nav div {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
+    nav div {display: flex; justify-content: center; gap: 20px;}
     nav a {
-      background: none;
-      color: #b6d4e3;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      border: 1px solid transparent;
-      transition: all 0.3s ease;
+      color: #b6d4e3; text-decoration: none;
+      padding: 6px 12px; border-radius: 6px;
+      font-size: 0.9rem; transition: all 0.3s ease;
     }
     nav a:hover {
       border: 1px solid #4e6e81;
@@ -51,8 +42,7 @@
 
     /* ---------- Background ---------- */
     canvas {
-      position: fixed;
-      top: 0; left: 0;
+      position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: -2;
       background: radial-gradient(circle at center, #121417 0%, #0d0e10 100%);
@@ -66,8 +56,7 @@
     }
     h1, h2, h3 {
       font-family: 'Cormorant Garamond', serif;
-      color: #e8eaec;
-      letter-spacing: 0.5px;
+      color: #e8eaec; letter-spacing: 0.5px;
       transition: color 0.5s ease, text-shadow 0.5s ease;
     }
     h1 {font-size: 2.8rem; font-weight: 600; margin-bottom: 8px;}
@@ -78,19 +67,15 @@
     /* ---------- Hero ---------- */
     .hero {padding-top: 110px;}
     .hero img {
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: top center;
+      width: 220px; height: 220px; border-radius: 50%;
+      object-fit: cover; object-position: top center;
       border: 2px solid #4e6e81;
       box-shadow: 0 0 25px rgba(78,110,129,0.25);
-      margin-bottom: 15px;
-      transition: transform 0.4s ease;
+      margin-bottom: 15px; transition: transform 0.4s ease;
     }
     .hero img:hover {transform: scale(1.04);}
     .tagline {
-      font-size: 1.05rem;
-      color: #a9adb1;
+      font-size: 1.05rem; color: #a9adb1;
       display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
       margin-top: 10px;
     }
@@ -99,7 +84,8 @@
 
     /* ---------- Buttons ---------- */
     .contact-buttons, .cert-buttons {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 25px;
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 12px; margin-top: 25px;
     }
     .btn {
       background-color: #202326;
@@ -117,56 +103,54 @@
       box-shadow: 0 0 12px rgba(78,110,129,0.6);
     }
 
+    /* ---------- Chips ---------- */
+    .chips {display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px;}
+    .chip {
+      background-color: #1e2124; color: #4e6e81;
+      padding: 5px 12px; border-radius: 14px;
+      border: 1px solid #4e6e81; font-size: 0.85rem;
+    }
+
     /* ---------- Gallery ---------- */
     .project-gallery {display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;}
     .project-gallery img {
-      width: 240px;
-      border-radius: 6px;
-      cursor: pointer;
+      width: 240px; border-radius: 6px; cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .project-gallery img:hover {transform: scale(1.05); box-shadow: 0 0 15px rgba(78,110,129,0.4);}
 
     /* ---------- Lightbox ---------- */
     .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
+      display: none; align-items: center; justify-content: center;
       z-index: 1000;
     }
-    .lightbox-content {
-      max-width: 90%;
-      max-height: 90%;
-      background: #000;
-      padding: 10px;
-      border-radius: 8px;
+    .lightbox-content {max-width: 90%; max-height: 90%; background: #000; padding: 10px; border-radius: 8px;}
+    .lightbox img {width: 100%; height: auto; border-radius: 8px;}
+    .close-btn {position: absolute; top: 25px; right: 35px; font-size: 2rem; color: #fff; cursor: pointer;}
+
+    /* ---------- Scroll-to-top ---------- */
+    #toTop {
+      position: fixed; bottom: 35px; right: 30px;
+      width: 42px; height: 42px;
+      background: #4e6e81;
+      border-radius: 50%; cursor: pointer;
+      box-shadow: 0 0 10px rgba(78,110,129,0.6);
+      display: none; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.2rem; z-index: 1500;
+      transition: all 0.4s ease;
     }
-    .lightbox img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .close-btn {
-      position: absolute;
-      top: 25px;
-      right: 35px;
-      font-size: 2rem;
-      color: #fff;
-      cursor: pointer;
-    }
+    #toTop:hover {box-shadow: 0 0 16px rgba(78,110,129,0.9); transform: scale(1.08);}
+    @media (max-width: 600px) {#toTop {display: none !important;}}
 
     footer {text-align: center; padding: 25px; font-size: 0.85rem; color: #777; background: #181a1c;}
 
     /* ---------- Animations ---------- */
     [data-fade] {opacity: 0; transform: translateY(15px); transition: opacity 0.7s, transform 0.7s;}
     [data-fade].visible {opacity: 1; transform: translateY(0);}
-    .glow-active {color: #b6d4e3; text-shadow: 0 0 10px rgba(102,176,216,0.9), 0 0 28px rgba(102,176,216,0.4); transition: color 0.25s ease-in-out, text-shadow 0.35s ease-in-out;}
+    .glow-active {color: #b6d4e3; text-shadow: 0 0 10px rgba(102,176,216,0.9), 0 0 28px rgba(102,176,216,0.4);}
 
     @media (max-width: 600px) {
       h1 {font-size: 2.2rem;}
@@ -180,7 +164,6 @@
 
 <body>
   <canvas id="blueprint"></canvas>
-
   <nav>
     <div>
       <a href="#about">About</a>
@@ -192,7 +175,7 @@
   </nav>
 
   <header class="hero" data-fade>
-    <img src="assets/Headshot.jpeg" alt="Louis Guerrero Headshot">
+    <img src="assets/Headshot.1.jpeg" alt="Louis Guerrero Headshot">
     <h1>Louis Guerrero</h1>
     <div class="tagline">
       <span>B.A. Political Science, LMU ’26</span>
@@ -200,6 +183,20 @@
       <span>Full-Stack Developer</span>
     </div>
   </header>
+
+  <section id="about" data-fade>
+    <h2>About Me</h2>
+    <p>I’m a Political Science senior at Loyola Marymount University who builds technology that solves real operational problems. My background bridges strategy, communication, and full-stack development, skills I’ve applied from launching <em>Career Compass</em> to scaling marketing operations at Klarako. I’m driven by making systems smoother, smarter, and more human.</p>
+  </section>
+
+  <section id="skills" data-fade>
+    <h2>Technical Focus</h2>
+    <div class="chips">
+      <div class="chip">JavaScript</div><div class="chip">React</div><div class="chip">Node.js</div><div class="chip">Python</div>
+      <div class="chip">Django</div><div class="chip">Docker</div><div class="chip">Kubernetes</div><div class="chip">SQL</div>
+      <div class="chip">CI/CD</div><div class="chip">Microservices</div><div class="chip">Cloud Deployment</div>
+    </div>
+  </section>
 
   <section id="projects" data-fade>
     <h2>Career Compass</h2>
@@ -224,12 +221,26 @@
 
   <section id="experience" data-fade>
     <h2>Recent Experience</h2>
-
     <h3>Marketing & Business Development Intern, Klarako (Jun–Sep 2025)</h3>
     <p>Built Klarako’s digital presence from the ground up, generating 170K+ impressions in three months. Supported outreach strategy, brand storytelling, and partnership growth.</p>
-
     <h3>Distribution Center Associate, Loyola Marymount University (Sep 2022–Present)</h3>
     <p>Manage 1,000+ package deliveries per week and train new staff to streamline campus logistics.</p>
+  </section>
+
+  <section id="certificates" data-fade>
+    <h2>Certificates</h2>
+    <div class="cert-buttons">
+      <a href="Full_Stack_Certificate.pdf" target="_blank" class="btn">IBM Full-Stack Software Developer</a>
+      <a href="https://coursera.org/verify/professional-cert/9MWZEA9LWFKR" target="_blank" class="btn">Verify on Coursera</a>
+      <a href="AI_Fundamentals_Certificate.pdf" target="_blank" class="btn">Wharton AI Fundamentals</a>
+    </div>
+  </section>
+
+  <section id="resume" data-fade>
+    <h2>Resume</h2>
+    <div class="cert-buttons">
+      <a href="Resume.pdf" target="_blank" class="btn">View Resume</a>
+    </div>
   </section>
 
   <section id="contact" data-fade>
@@ -243,34 +254,39 @@
   </section>
 
   <footer>© <span id="year"></span> Louis Guerrero. All rights reserved.</footer>
+  <div id="toTop" title="Back to top">↑</div>
 
   <script>
+    // Fade-in & glow
     const fadeEls=document.querySelectorAll('[data-fade]');
-    const fadeIn=()=>fadeEls.forEach(el=>{
-      const rect=el.getBoundingClientRect();
-      if(rect.top<window.innerHeight-60)el.classList.add('visible');
-    });
+    const fadeIn=()=>fadeEls.forEach(el=>{const rect=el.getBoundingClientRect();if(rect.top<window.innerHeight-60)el.classList.add('visible');});
     window.addEventListener('scroll',fadeIn);fadeIn();
-
     const headers=document.querySelectorAll('h2');
-    const observer=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){e.target.classList.add('glow-active');setTimeout(()=>e.target.classList.remove('glow-active'),1300);}
-      });
-    },{threshold:.4,rootMargin:"-10% 0px -10% 0px"});
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('glow-active');setTimeout(()=>e.target.classList.remove('glow-active'),1300);}});},{threshold:.4});
     headers.forEach(h=>observer.observe(h));
     document.getElementById('year').textContent=new Date().getFullYear();
 
-    // Lightbox functionality for Career Compass images only
-    function openLightbox(src) {
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightboxImg.src = src;
-      lightbox.style.display = 'flex';
-    }
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-    }
+    // Lightbox
+    function openLightbox(src){const lb=document.getElementById('lightbox');const img=document.getElementById('lightbox-img');img.src=src;lb.style.display='flex';}
+    function closeLightbox(){document.getElementById('lightbox').style.display='none';}
+
+    // Scroll-to-top
+    const toTop=document.getElementById('toTop');
+    window.addEventListener('scroll',()=>{toTop.style.display=window.scrollY>300?'flex':'none';});
+    toTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});
+
+    // Apple-like smooth scroll inertia
+    document.documentElement.style.scrollBehavior='smooth';
+
+    // Background animation
+    const canvas=document.getElementById('blueprint'),ctx=canvas.getContext('2d');
+    let particles=[],mouse={x:null,y:null,radius:100};const particleCount=85;
+    function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;initParticles();}
+    function initParticles(){particles=[];for(let i=0;i<particleCount;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4});}}
+    function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let i=0;i<particleCount;i++){const p=particles[i];ctx.beginPath();ctx.arc(p.x,p.y,1.8,0,Math.PI*2);ctx.fillStyle='rgba(102,176,216,0.25)';ctx.fill();for(let j=i;j<particleCount;j++){const p2=particles[j];const dx=p.x-p2.x,dy=p.y-p2.y,dist=dx*dx+dy*dy;if(dist<1500){ctx.strokeStyle='rgba(102,176,216,0.15)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();}}p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;}requestAnimationFrame(draw);}
+    window.addEventListener('mousemove',e=>{mouse.x=e.x;mouse.y=e.y;});
+    window.addEventListener('mouseout',()=>{mouse.x=null;mouse.y=null;});
+    window.addEventListener('resize',resize);resize();draw();
   </script>
 </body>
 </html>
