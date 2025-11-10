@@ -76,7 +76,6 @@
     }
     .tagline span::after {content: "•"; margin: 0 8px; color: #4e6e81;}
     .tagline span:last-child::after {content: "";}
-
     .contact-buttons, .cert-buttons {
       display: flex; justify-content: center; flex-wrap: wrap;
       gap: 12px; margin-top: 25px;
@@ -172,6 +171,23 @@
       <span>Full-Stack Developer</span>
     </div>
   </header>
+
   <!-- rest of your portfolio content remains identical -->
+
+  <script>
+    // Restore fade-in visibility
+    document.addEventListener('DOMContentLoaded', () => {
+      const fadeEls = document.querySelectorAll('[data-fade]');
+      // If IntersectionObserver is available, animate on scroll. Otherwise show immediately.
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.15 });
+        fadeEls.forEach(el => io.observe(el));
+      } else {
+        fadeEls.forEach(el => el.classList.add('visible'));
+      }
+    });
+  </script>
 </body>
 </html>
