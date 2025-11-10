@@ -159,6 +159,41 @@
       .tagline {font-size: 0.95rem;}
       nav div {gap: 8px;}
     }
+    /* ---------- Skills Layout & Divider ---------- */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 20px;
+}
+
+.skills-column {
+  flex: 1 1 45%;
+  min-width: 280px;
+}
+
+.skills-column h2 {
+  font-size: 1.6rem;
+  color: #e8eaec;
+  margin-bottom: 12px;
+}
+
+.skills-divider {
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(78,110,129,0.3), rgba(78,110,129,0.1));
+  margin: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  .skills-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .skills-divider {
+    display: none;
+  }
+}
   </style>
 </head>
 
@@ -180,23 +215,61 @@
     <div class="tagline">
       <span>B.A. Political Science, LMU ’26</span>
       <span>Problem Solver</span>
-      <span>Full-Stack Developer</span>
+      <span>IBM Full Stack Certified (2025)</span>
     </div>
   </header>
 
   <section id="about" data-fade>
     <h2>About Me</h2>
-    <p>I’m a Political Science senior at Loyola Marymount University who builds technology that solves real operational problems. My background bridges strategy, communication, and full-stack development, skills I’ve applied from launching <em>Career Compass</em> to scaling marketing operations at Klarako. I’m driven by making systems smoother, smarter, and more human.</p>
+    <p>  I’m a senior at Loyola Marymount University who builds technology that solves real operational problems.  My background blends strategy, communication, and full-stack development, skills I’ve used from launching<em>Career Compass</em> to scaling marketing operations at Klarako. When I’m not working on new ideas, I run a dog walking and house-sitting business that makes sure I actually touch grass once in a while.</p>
   </section>
 
-  <section id="skills" data-fade>
-    <h2>Technical Focus</h2>
-    <div class="chips">
-      <div class="chip">JavaScript</div><div class="chip">React</div><div class="chip">Node.js</div><div class="chip">Python</div>
-      <div class="chip">Django</div><div class="chip">Docker</div><div class="chip">Kubernetes</div><div class="chip">SQL</div>
-      <div class="chip">CI/CD</div><div class="chip">Microservices</div><div class="chip">Cloud Deployment</div>
+<section id="skills" data-fade>
+  <div class="skills-container">
+    
+    <!-- Technical Skills -->
+    <div class="skills-column">
+      <h2>Technical Skills</h2>
+      <div class="chips">
+        <div class="chip">JavaScript</div>
+        <div class="chip">React</div>
+        <div class="chip">Node.js</div>
+        <div class="chip">Python</div>
+        <div class="chip">Django</div>
+        <div class="chip">Docker</div>
+        <div class="chip">Kubernetes</div>
+        <div class="chip">SQL</div>
+        <div class="chip">CI/CD</div>
+        <div class="chip">Microservices</div>
+        <div class="chip">Cloud Deployment</div>
+        <div class="chip">Serverless</div>
+        <div class="chip">Flask</div>
+        <div class="chip">Bootstrap</div>
+      </div>
     </div>
-  </section>
+
+    <!-- Divider -->
+    <div class="skills-divider"></div>
+
+    <!-- Professional Skills -->
+    <div class="skills-column">
+      <h2>Professional Skills</h2>
+      <div class="chips">
+        <div class="chip">Leadership</div>
+        <div class="chip">Strategy</div>
+        <div class="chip">Communication</div>
+        <div class="chip">Project Management</div>
+        <div class="chip">Operations</div>
+        <div class="chip">Marketing</div>
+        <div class="chip">Research</div>
+        <div class="chip">Data Analysis</div>
+        <div class="chip">Public Speaking</div>
+        <div class="chip">Creative Problem Solving</div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
   <section id="projects" data-fade>
     <h2>Career Compass</h2>
