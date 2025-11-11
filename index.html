@@ -711,16 +711,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const SHOW_MS = 6000; // how long the footer stays visible
 
-  function setGreetingOnce() {
-    if (!greetingEl) return;
-    const h = new Date().getHours();
-    let msg = 'Welcome.';
-    if (h >= 5 && h < 11) msg = 'Good morning.';
-    else if (h >= 11 && h < 16) msg = 'Good afternoon.';
-    else if (h >= 16 && h < 21) msg = 'Good evening.';
-    else msg = 'Burning the midnight oil.';
-    greetingEl.textContent = msg;
-  }
+ function setGreetingOnce() {
+  if (!greetingEl) return;
+  const h = new Date().getHours();
+  let msg = 'Welcome.';
+
+  if (h >= 5 && h < 11) msg = 'Good morning.';
+  else if (h >= 11 && h < 16) msg = 'Good afternoon.';
+  else if (h >= 16 && h < 21) msg = 'Good evening.';
+  else if (h >= 21 || h < 2) msg = 'Still awake?';
+  else msg = "You're up early.";
+
+  greetingEl.textContent = msg;
+}
 
   function showThenHide() {
     if (!footer) return;
