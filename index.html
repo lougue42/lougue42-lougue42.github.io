@@ -685,10 +685,12 @@ h2 {
   });
   window.addEventListener('resize', onResize);
   bootParticles();
+// ============================
+// Smart footer + adaptive greeting (fixed until reload)
+// ============================
 
-  // ============================
-  // Smart footer + adaptive greeting (fixed until reload)
-  // ============================
+// Wrap so it always finds the elements, no matter where this script sits
+document.addEventListener('DOMContentLoaded', () => {
   const footer = document.getElementById('smart-footer');
   const greetingEl = document.getElementById('greeting');
   const updatedEl = document.getElementById('last-updated');
@@ -717,14 +719,18 @@ h2 {
 
   function handleFooterOnScroll() {
     if (!footer) return;
-    const show = window.scrollY > 120; // reveal after a small scroll
-    footer.classList.toggle('show', show);
+    const revealAfter = 120;
+    const desktopImmediate = window.innerWidth >= 900; // show immediately on desktop
+    const shouldShow = desktopImmediate ? true : window.scrollY > revealAfter;
+    footer.classList.toggle('show', shouldShow);
   }
 
   setGreetingOnce();     // fixed until reload
   setLastUpdated();
   handleFooterOnScroll();
   window.addEventListener('scroll', handleFooterOnScroll);
+  window.addEventListener('resize', handleFooterOnScroll);
+});
 
   // Resume modal controls
   function openResumeModal() {
