@@ -517,7 +517,7 @@ h2 {
   // Background animation
   const canvas = document.getElementById('blueprint'), ctx = canvas.getContext('2d');
   let particles = [], mouse = { x: null, y: null, radius: 100 };
-  const particleCount = 100;
+  const particleCount = 92;
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -548,9 +548,9 @@ h2 {
       for (let j = i; j < particleCount; j++) {
         const p2 = particles[j];
         const dx = p.x - p2.x, dy = p.y - p2.y, dist = dx * dx + dy * dy;
-        if (dist < 2000) {
-          ctx.strokeStyle = 'rgba(102,176,216,0.23)';
-          ctx.lineWidth = 0.6;
+        if (dist < 1800) {
+          ctx.strokeStyle = 'rgba(102,176,216,0.21)';
+          ctx.lineWidth = 0.66;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
