@@ -450,12 +450,11 @@ h2 {
   </section>
 
   <section id="resume" data-fade>
-  <h2>Resume</h2>
-  <div class="cert-buttons">
-    <button class="btn" onclick="openRecruiter()">Quick View</button>
-    <a class="btn" href="Louis-Guerrero-2.pdf" target="_blank" rel="noopener">Download PDF</a>
-  </div>
-</section>
+    <h2>Resume</h2>
+    <div class="cert-buttons">
+      <a href="Resume.pdf" target="_blank" class="btn">View Resume</a>
+    </div>
+  </section>
 
   <section id="contact" data-fade>
     <h2>Connect</h2>
@@ -501,45 +500,7 @@ h2 {
     window.addEventListener('mousemove',e=>{mouse.x=e.x;mouse.y=e.y;});
     window.addEventListener('mouseout',()=>{mouse.x=null;mouse.y=null;});
     window.addEventListener('resize',resize);resize();draw();
-
-    <script>
-  function openRecruiter(){
-    const m = document.getElementById('recruiterModal');
-    showPane('resume');
-    m.style.display = 'flex';
-  }
-  function closeRecruiter(){
-    document.getElementById('recruiterModal').style.display = 'none';
-  }
-  function showPane(which){
-    document.getElementById('pane-resume').style.display = (which === 'resume') ? 'block' : 'none';
-    document.getElementById('pane-ibm').style.display = (which === 'ibm') ? 'block' : 'none';
-  }
   </script>
-
-  <!-- Recruiter Quick View Modal -->
-<div id="recruiterModal" class="lightbox" style="display:none; background: rgba(0,0,0,0.88);">
-  <span class="close-btn" onclick="closeRecruiter()" aria-label="Close modal">&times;</span>
-  <div class="lightbox-content" style="width: min(1000px, 92vw); background:#0c0e10;">
-    <div class="rqv-tabs" style="display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
-      <button class="btn" onclick="showPane('resume')">Resume</button>
-      <button class="btn" onclick="showPane('ibm')">IBM Certificate</button>
-      <a class="btn" target="_blank" rel="noopener" href="https://coursera.org/verify/professional-cert/9MWZEA9LWFKR">Verify</a>
-    </div>
-
-    <div id="pane-resume">
-      <object data="Louis-Guerrero-2.pdf" type="application/pdf" width="100%" height="600">
-        <p style="padding:10px">Preview unavailable. <a class="btn" href="Louis-Guerrero-2.pdf" target="_blank" rel="noopener">Open in new tab</a></p>
-      </object>
-    </div>
-
-    <div id="pane-ibm" style="display:none;">
-      <object data="Full_Stack_Certificate.pdf" type="application/pdf" width="100%" height="600">
-        <p style="padding:10px">Preview unavailable. <a class="btn" href="Full_Stack_Certificate.pdf" target="_blank" rel="noopener">Open in new tab</a></p>
-      </object>
-    </div>
-  </div>
-</div>
    <!-- Subtle noise texture overlay -->
   <div class="bg-noise" aria-hidden="true"></div>
 </body>
