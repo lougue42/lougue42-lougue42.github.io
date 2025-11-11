@@ -335,32 +335,48 @@ h2 {
 }
 /* Smart footer */
 #smart-footer{
-  position: fixed; left: 0; right: 0; bottom: 0;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
   background: rgba(15,16,18,0.78);
   backdrop-filter: blur(6px);
   border-top: 1px solid rgba(255,255,255,0.06);
   padding: 10px 16px;
   z-index: 90;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity .25s ease, transform .25s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .6s ease, transform .6s ease; /* slower fade */
   pointer-events: none; /* prevents accidental hits when hidden */
 }
+
 #smart-footer.show{
-  opacity: 1; transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
 }
-#smart-footer .footer-inner{
-  max-width: 1100px; margin: 0 auto;
-  display: flex; align-items: center; gap: 12px;
-  font-size: 14px; color: #b6d4e3;
+
+/* Auto-hide (sleep) state */
+#smart-footer.sleep{
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
 }
+
+#smart-footer .footer-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #b6d4e3;
+}
+
 #smart-footer .spacer{ flex: 1; }
 
 @media (max-width: 520px){
   #smart-footer{ padding: 8px 12px; }
   #smart-footer .footer-inner{ font-size: 13px; }
 }
-
 </style>
 </head>
 
@@ -686,20 +702,14 @@ h2 {
   window.addEventListener('resize', onResize);
   bootParticles();
 // ============================
-// Smart footer + adaptive greeting (fixed until reload)
+// Smart footer + one-time greeting with auto-hide
 // ============================
 
-// Wrap so it always finds the elements, no matter where this script sits
 document.addEventListener('DOMContentLoaded', () => {
   const footer = document.getElementById('smart-footer');
   const greetingEl = document.getElementById('greeting');
-  const updatedEl = document.getElementById('last-updated');
 
-  function formatUpdated(ts){
-    const d = new Date(ts);
-    const opts = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' };
-    return d.toLocaleString(undefined, opts);
-  }
+  const SHOW_MS = 6000; // how long the footer stays visible
 
   function setGreetingOnce() {
     if (!greetingEl) return;
@@ -712,24 +722,14 @@ document.addEventListener('DOMContentLoaded', () => {
     greetingEl.textContent = msg;
   }
 
-  function setLastUpdated() {
-    if (!updatedEl) return;
-    updatedEl.textContent = 'Updated: ' + formatUpdated(document.lastModified);
-  }
-
-  function handleFooterOnScroll() {
+  function showThenHide() {
     if (!footer) return;
-    const revealAfter = 120;
-    const desktopImmediate = window.innerWidth >= 900; // show immediately on desktop
-    const shouldShow = desktopImmediate ? true : window.scrollY > revealAfter;
-    footer.classList.toggle('show', shouldShow);
+    footer.classList.add('show');
+    setTimeout(() => footer.classList.remove('show'), SHOW_MS);
   }
 
-  setGreetingOnce();     // fixed until reload
-  setLastUpdated();
-  handleFooterOnScroll();
-  window.addEventListener('scroll', handleFooterOnScroll);
-  window.addEventListener('resize', handleFooterOnScroll);
+  setGreetingOnce();
+  showThenHide();
 });
 
   // Resume modal controls
@@ -811,18 +811,15 @@ document.addEventListener('DOMContentLoaded', () => {
   <!-- Subtle noise texture overlay -->
   <div class="bg-noise" aria-hidden="true"></div>
 
-  <!-- 
+<!-- 
   Smart Footer (V2)
-  - Fades in after scroll and stays pinned at the bottom
-  - Displays a time-based greeting once per page load
-  - Shows the site's "last updated" timestamp
+  - Fades in on load, shows a one-time greeting
+  - Automatically fades out after a few seconds
   - Fully managed by the adaptive script near the bottom of index.html
 -->
 <footer id="smart-footer" data-fade>
   <div class="footer-inner">
     <span id="greeting">Welcome.</span>
-    <span class="spacer"></span>
-    <span id="last-updated">Updated: —</span>
   </div>
 </footer>
 
