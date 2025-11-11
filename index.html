@@ -471,38 +471,149 @@ h2 {
   <div id="toTop" title="Back to top">↑</div>
 
   <script>
-    // Fade-in & glow
-    const fadeEls=document.querySelectorAll('[data-fade]');
-    const fadeIn=()=>fadeEls.forEach(el=>{const rect=el.getBoundingClientRect();if(rect.top<window.innerHeight-60)el.classList.add('visible');});
-    window.addEventListener('scroll',fadeIn);fadeIn();
-    const headers=document.querySelectorAll('h2');
-    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('glow-active');setTimeout(()=>e.target.classList.remove('glow-active'),1300);}});},{threshold:.4});
-    headers.forEach(h=>observer.observe(h));
-    document.getElementById('year').textContent=new Date().getFullYear();
+  // Fade-in & glow
+  const fadeEls = document.querySelectorAll('[data-fade]');
+  const fadeIn = () => fadeEls.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+  });
+  window.addEventListener('scroll', fadeIn); fadeIn();
 
-    // Lightbox
-    function openLightbox(src){const lb=document.getElementById('lightbox');const img=document.getElementById('lightbox-img');img.src=src;lb.style.display='flex';}
-    function closeLightbox(){document.getElementById('lightbox').style.display='none';}
+  const headers = document.querySelectorAll('h2');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('glow-active');
+        setTimeout(() => e.target.classList.remove('glow-active'), 1300);
+      }
+    });
+  }, { threshold: .4 });
+  headers.forEach(h => observer.observe(h));
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Scroll-to-top
-    const toTop=document.getElementById('toTop');
-    window.addEventListener('scroll',()=>{toTop.style.display=window.scrollY>300?'flex':'none';});
-    toTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});
+  // Lightbox
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    img.src = src;
+    lb.style.display = 'flex';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
 
-    // Apple-like smooth scroll inertia
-    document.documentElement.style.scrollBehavior='smooth';
+  // Scroll-to-top
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    toTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+  toTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-    // Background animation
-    const canvas=document.getElementById('blueprint'),ctx=canvas.getContext('2d');
-    let particles=[],mouse={x:null,y:null,radius:100};const particleCount=85;
-    function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;initParticles();}
-    function initParticles(){particles=[];for(let i=0;i<particleCount;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*0.4,vy:(Math.random()-.5)*0.4});}}
-    function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let i=0;i<particleCount;i++){const p=particles[i];ctx.beginPath();ctx.arc(p.x,p.y,1.8,0,Math.PI*2);ctx.fillStyle='rgba(102,176,216,0.25)';ctx.fill();for(let j=i;j<particleCount;j++){const p2=particles[j];const dx=p.x-p2.x,dy=p.y-p2.y,dist=dx*dx+dy*dy;if(dist<1500){ctx.strokeStyle='rgba(102,176,216,0.15)';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();}}p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;}requestAnimationFrame(draw);}
-    window.addEventListener('mousemove',e=>{mouse.x=e.x;mouse.y=e.y;});
-    window.addEventListener('mouseout',()=>{mouse.x=null;mouse.y=null;});
-    window.addEventListener('resize',resize);resize();draw();
-  </script>
-   <!-- Subtle noise texture overlay -->
+  // Apple-like smooth scroll inertia
+  document.documentElement.style.scrollBehavior = 'smooth';
+
+  // Background animation
+  const canvas = document.getElementById('blueprint'), ctx = canvas.getContext('2d');
+  let particles = [], mouse = { x: null, y: null, radius: 100 };
+  const particleCount = 85;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - .5) * 0.4,
+        vy: (Math.random() - .5) * 0.4
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particleCount; i++) {
+      const p = particles[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(102,176,216,0.25)';
+      ctx.fill();
+      for (let j = i; j < particleCount; j++) {
+        const p2 = particles[j];
+        const dx = p.x - p2.x, dy = p.y - p2.y, dist = dx * dx + dy * dy;
+        if (dist < 1500) {
+          ctx.strokeStyle = 'rgba(102,176,216,0.15)';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener('resize', resize);
+  resize(); draw();
+
+  // Resume modal controls
+  function openResumeModal() {
+    const m = document.getElementById('resumeModal');
+    if (m) m.style.display = 'flex';
+  }
+  function closeResumeModal() {
+    const m = document.getElementById('resumeModal');
+    if (m) m.style.display = 'none';
+  }
+
+  // Close on Escape and when clicking the backdrop (safe version)
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeResumeModal();
+  });
+  document.addEventListener('click', e => {
+    if (e.target && e.target.id === 'resumeModal') closeResumeModal();
+  });
+</script>
+
+  <!-- Resume Quick View Modal -->
+  <div id="resumeModal" style="
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:rgba(0,0,0,0.88);
+    align-items:center; justify-content:center; padding:16px;">
+    <button aria-label="Close"
+      onclick="closeResumeModal()"
+      style="position:absolute; top:16px; right:22px; font-size:28px; line-height:1; 
+             color:#dfe1e2; background:none; border:none; cursor:pointer;">&times;</button>
+
+    <div style="width:min(1000px,92vw); background:#0c0e10; border:1px solid #2b2f33; box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid #2b2f33;">
+        <h3 style="margin:0; font-family:'Cormorant Garamond', serif; color:#e8eaec; font-weight:500;">Resume Preview</h3>
+        <a class="btn" href="Resume.pdf" target="_blank" rel="noopener">Open in New Tab</a>
+      </div>
+      <object data="Resume.pdf" type="application/pdf" width="100%" height="600">
+        <p style="padding:12px">Preview unavailable. 
+          <a class="btn" href="Resume.pdf" target="_blank" rel="noopener">Open in New Tab</a>
+        </p>
+      </object>
+    </div>
+  </div>
+
+  <!-- Subtle noise texture overlay -->
   <div class="bg-noise" aria-hidden="true"></div>
 </body>
+
 </html>
