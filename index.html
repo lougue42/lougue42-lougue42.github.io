@@ -313,7 +313,7 @@ h2 {
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35), 0 0 18px rgba(78, 110, 129, 0.26);
 }
 
-/* Buttons: keep your current look, add a crisper hover edge */
+/* Buttons: keep current look, add a crisper hover edge */
 .btn {
   box-shadow: 0 0 0 rgba(0,0,0,0);
 }
@@ -322,6 +322,18 @@ h2 {
   box-shadow: 0 0 12px rgba(78,110,129,0.6);
   filter: brightness(1.02);
 }
+
+/* ---------- Noise Texture ---------- */
+.bg-noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.028;                /* subtle but visible */
+  background-size: 200px 200px;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAADUlEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAuQ==");
+}
+
 </style>
 </head>
 
@@ -489,5 +501,7 @@ h2 {
     window.addEventListener('mouseout',()=>{mouse.x=null;mouse.y=null;});
     window.addEventListener('resize',resize);resize();draw();
   </script>
+   <!-- Subtle noise texture overlay -->
+  <div class="bg-noise" aria-hidden="true"></div>
 </body>
 </html>
