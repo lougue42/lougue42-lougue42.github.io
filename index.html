@@ -333,6 +333,33 @@ h2 {
   background-size: 200px 200px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAADUlEQVR4nO3BAQ0AAADCoPdPbQ8HFAAAuQ==");
 }
+/* Smart footer */
+#smart-footer{
+  position: fixed; left: 0; right: 0; bottom: 0;
+  background: rgba(15,16,18,0.78);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 10px 16px;
+  z-index: 90;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none; /* prevents accidental hits when hidden */
+}
+#smart-footer.show{
+  opacity: 1; transform: translateY(0);
+  pointer-events: auto;
+}
+#smart-footer .footer-inner{
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; color: #b6d4e3;
+}
+#smart-footer .spacer{ flex: 1; }
+
+@media (max-width: 520px){
+  #smart-footer{ padding: 8px 12px; }
+  #smart-footer .footer-inner{ font-size: 13px; }
+}
 
 </style>
 </head>
@@ -524,17 +551,15 @@ h2 {
   const canvas = document.getElementById('blueprint');
   const ctx = canvas.getContext('2d');
 
-  // Visual bases that match your current vibe
   const BASES = {
-    speed: 0.4,        // particle drift, same feel as before
-    dotSize: 1.8,      // pixel radius at 1x DPR
-    linkDist: 42,      // px at 1x DPR (old sqrt(1800) was about 42)
-    linkAlpha: 0.21,   // line opacity
+    speed: 0.4,
+    dotSize: 1.8,
+    linkDist: 42,      // sqrt(1800) ≈ 42
+    linkAlpha: 0.21,
     dotFill: 'rgba(102,176,216,0.25)',
     lineStroke: 'rgba(102,176,216,0.21)'
   };
 
-  // State
   let particles = [];
   let particleCount = 0;
   let dpr = Math.max(1, window.devicePixelRatio || 1);
@@ -542,21 +567,18 @@ h2 {
 
   function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
 
-  // Compute adaptive count by viewport size and DPR
   function computeAdaptiveCount() {
-    // Optional manual override for testing
-    // <canvas id="blueprint" data-particle-override="140">
     const overrideAttr = canvas.getAttribute('data-particle-override');
     const override = overrideAttr && overrideAttr.trim() !== '' ? parseInt(overrideAttr, 10) : null;
     if (!Number.isNaN(override) && override !== null) return clamp(override, 20, 800);
 
     const area = vw * vh;
     let density;
-    if (vw <= 480)        density = 0.00006; // small phones
-    else if (vw <= 768)   density = 0.00008; // phones and small tablets
-    else if (vw <= 1280)  density = 0.00010; // laptops
-    else if (vw <= 1920)  density = 0.00012; // full HD
-    else                  density = 0.00014; // ultra wide
+    if (vw <= 480)        density = 0.00006;
+    else if (vw <= 768)   density = 0.00008;
+    else if (vw <= 1280)  density = 0.00010;
+    else if (vw <= 1920)  density = 0.00012;
+    else                  density = 0.00014;
 
     const dprPenalty = dpr > 1.5 ? 0.82 : 1;
     const target = Math.round(area * density * dprPenalty);
@@ -567,8 +589,6 @@ h2 {
     vw = window.innerWidth;
     vh = window.innerHeight;
     dpr = Math.max(1, window.devicePixelRatio || 1);
-
-    // Backing store in device pixels for crisp lines
     w = canvas.width = Math.floor(vw * dpr);
     h = canvas.height = Math.floor(vh * dpr);
     canvas.style.width = vw + 'px';
@@ -579,8 +599,8 @@ h2 {
     return {
       x: Math.random() * w,
       y: Math.random() * h,
-      vx: (Math.random() - 0.5) * BASES.speed * dpr * 1.0,
-      vy: (Math.random() - 0.5) * BASES.speed * dpr * 1.0
+      vx: (Math.random() - 0.5) * BASES.speed * dpr,
+      vy: (Math.random() - 0.5) * BASES.speed * dpr
     };
   }
 
@@ -604,29 +624,23 @@ h2 {
   function draw() {
     ctx.clearRect(0, 0, w, h);
 
-    // Draw dots
+    // Dots
     ctx.fillStyle = BASES.dotFill;
     const r = BASES.dotSize * dpr;
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
-
-      // Move
-      p.x += p.vx;
-      p.y += p.vy;
-
-      // Soft wrap
+      p.x += p.vx; p.y += p.vy;
       if (p.x < -20) p.x = w + 20;
       if (p.x > w + 20) p.x = -20;
       if (p.y < -20) p.y = h + 20;
       if (p.y > h + 20) p.y = -20;
 
-      // Dot
       ctx.beginPath();
       ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Draw links
+    // Links
     const maxDist = BASES.linkDist * dpr;
     const maxDist2 = maxDist * maxDist;
     ctx.lineWidth = Math.max(0.5, 0.66 * dpr);
@@ -634,8 +648,7 @@ h2 {
       const a = particles[i];
       for (let j = i + 1; j < particles.length; j++) {
         const b = particles[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
+        const dx = a.x - b.x, dy = a.y - b.y;
         const dist2 = dx * dx + dy * dy;
         if (dist2 < maxDist2) {
           const t = 1 - Math.sqrt(dist2) / maxDist;
@@ -651,7 +664,7 @@ h2 {
     requestAnimationFrame(draw);
   }
 
-  // Debounce helper
+  // Debounce
   function debounce(fn, wait) {
     let t;
     return function() {
@@ -659,11 +672,7 @@ h2 {
       t = setTimeout(() => fn.apply(this, arguments), wait);
     };
   }
-
-  const onResize = debounce(() => {
-    resizeCanvas();
-    topUpOrTrim();
-  }, 120);
+  const onResize = debounce(() => { resizeCanvas(); topUpOrTrim(); }, 120);
 
   function bootParticles() {
     resizeCanvas();
@@ -674,9 +683,48 @@ h2 {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') onResize();
   });
-
   window.addEventListener('resize', onResize);
   bootParticles();
+
+  // ============================
+  // Smart footer + adaptive greeting (fixed until reload)
+  // ============================
+  const footer = document.getElementById('smart-footer');
+  const greetingEl = document.getElementById('greeting');
+  const updatedEl = document.getElementById('last-updated');
+
+  function formatUpdated(ts){
+    const d = new Date(ts);
+    const opts = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' };
+    return d.toLocaleString(undefined, opts);
+  }
+
+  function setGreetingOnce() {
+    if (!greetingEl) return;
+    const h = new Date().getHours();
+    let msg = 'Welcome.';
+    if (h >= 5 && h < 11) msg = 'Good morning.';
+    else if (h >= 11 && h < 16) msg = 'Good afternoon.';
+    else if (h >= 16 && h < 21) msg = 'Good evening.';
+    else msg = 'Burning the midnight oil.';
+    greetingEl.textContent = msg;
+  }
+
+  function setLastUpdated() {
+    if (!updatedEl) return;
+    updatedEl.textContent = 'Updated: ' + formatUpdated(document.lastModified);
+  }
+
+  function handleFooterOnScroll() {
+    if (!footer) return;
+    const show = window.scrollY > 120; // reveal after a small scroll
+    footer.classList.toggle('show', show);
+  }
+
+  setGreetingOnce();     // fixed until reload
+  setLastUpdated();
+  handleFooterOnScroll();
+  window.addEventListener('scroll', handleFooterOnScroll);
 
   // Resume modal controls
   function openResumeModal() {
@@ -688,13 +736,9 @@ h2 {
     if (m) m.style.display = 'none';
   }
 
-  // Close on Escape and when clicking the backdrop
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeResumeModal();
-  });
-  document.addEventListener('click', e => {
-    if (e.target && e.target.id === 'resumeModal') closeResumeModal();
-  });
+  // Close on Escape and backdrop
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResumeModal(); });
+  document.addEventListener('click', e => { if (e.target && e.target.id === 'resumeModal') closeResumeModal(); });
 
   // Pane controls for Resume / IBM Certificate
   function showPane(which) {
@@ -715,7 +759,6 @@ h2 {
     };
   })();
 </script>
-
 
  <!-- Resume + IBM Certificate Quick View Modal -->
 <div id="resumeModal" style="
@@ -761,6 +804,22 @@ h2 {
 
   <!-- Subtle noise texture overlay -->
   <div class="bg-noise" aria-hidden="true"></div>
+
+  <!-- 
+  Smart Footer (V2)
+  - Fades in after scroll and stays pinned at the bottom
+  - Displays a time-based greeting once per page load
+  - Shows the site's "last updated" timestamp
+  - Fully managed by the adaptive script near the bottom of index.html
+-->
+<footer id="smart-footer" data-fade>
+  <div class="footer-inner">
+    <span id="greeting">Welcome.</span>
+    <span class="spacer"></span>
+    <span id="last-updated">Updated: —</span>
+  </div>
+</footer>
+
 </body>
 
 </html>
