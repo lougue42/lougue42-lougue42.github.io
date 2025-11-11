@@ -470,8 +470,8 @@ h2 {
   <footer>© <span id="year"></span> Louis Guerrero. All rights reserved.</footer>
   <div id="toTop" title="Back to top">↑</div>
 
-  <script>
-  // Fade-in & glow
+<script>
+  // Fade-in and glow
   const fadeEls = document.querySelectorAll('[data-fade]');
   const fadeIn = () => fadeEls.forEach(el => {
     const rect = el.getBoundingClientRect();
@@ -487,88 +487,196 @@ h2 {
         setTimeout(() => e.target.classList.remove('glow-active'), 1300);
       }
     });
-  }, { threshold: .4 });
+  }, { threshold: 0.4 });
   headers.forEach(h => observer.observe(h));
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const yearEl = document.getElementById('year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // Lightbox
   function openLightbox(src) {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
+    if (!lb || !img) return;
     img.src = src;
     lb.style.display = 'flex';
   }
   function closeLightbox() {
-    document.getElementById('lightbox').style.display = 'none';
+    const lb = document.getElementById('lightbox');
+    if (lb) lb.style.display = 'none';
   }
 
   // Scroll-to-top
   const toTop = document.getElementById('toTop');
-  window.addEventListener('scroll', () => {
-    toTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
-  });
-  toTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  if (toTop) {
+    window.addEventListener('scroll', () => {
+      toTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+    });
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // Apple-like smooth scroll inertia
   document.documentElement.style.scrollBehavior = 'smooth';
 
-  // Background animation
-  const canvas = document.getElementById('blueprint'), ctx = canvas.getContext('2d');
-  let particles = [], mouse = { x: null, y: null, radius: 100 };
-  const particleCount = 92;
+  // ============================
+  // Background particles V2: adaptive density + DPR scaling + smooth resize
+  // ============================
+  const canvas = document.getElementById('blueprint');
+  const ctx = canvas.getContext('2d');
 
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
+  // Visual bases that match your current vibe
+  const BASES = {
+    speed: 0.4,        // particle drift, same feel as before
+    dotSize: 1.8,      // pixel radius at 1x DPR
+    linkDist: 42,      // px at 1x DPR (old sqrt(1800) was about 42)
+    linkAlpha: 0.21,   // line opacity
+    dotFill: 'rgba(102,176,216,0.25)',
+    lineStroke: 'rgba(102,176,216,0.21)'
+  };
+
+  // State
+  let particles = [];
+  let particleCount = 0;
+  let dpr = Math.max(1, window.devicePixelRatio || 1);
+  let vw = 0, vh = 0, w = 0, h = 0;
+
+  function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+
+  // Compute adaptive count by viewport size and DPR
+  function computeAdaptiveCount() {
+    // Optional manual override for testing
+    // <canvas id="blueprint" data-particle-override="140">
+    const overrideAttr = canvas.getAttribute('data-particle-override');
+    const override = overrideAttr && overrideAttr.trim() !== '' ? parseInt(overrideAttr, 10) : null;
+    if (!Number.isNaN(override) && override !== null) return clamp(override, 20, 800);
+
+    const area = vw * vh;
+    let density;
+    if (vw <= 480)        density = 0.00006; // small phones
+    else if (vw <= 768)   density = 0.00008; // phones and small tablets
+    else if (vw <= 1280)  density = 0.00010; // laptops
+    else if (vw <= 1920)  density = 0.00012; // full HD
+    else                  density = 0.00014; // ultra wide
+
+    const dprPenalty = dpr > 1.5 ? 0.82 : 1;
+    const target = Math.round(area * density * dprPenalty);
+    return clamp(target, 40, 500);
+  }
+
+  function resizeCanvas() {
+    vw = window.innerWidth;
+    vh = window.innerHeight;
+    dpr = Math.max(1, window.devicePixelRatio || 1);
+
+    // Backing store in device pixels for crisp lines
+    w = canvas.width = Math.floor(vw * dpr);
+    h = canvas.height = Math.floor(vh * dpr);
+    canvas.style.width = vw + 'px';
+    canvas.style.height = vh + 'px';
+  }
+
+  function makeParticle() {
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * BASES.speed * dpr * 1.0,
+      vy: (Math.random() - 0.5) * BASES.speed * dpr * 1.0
+    };
   }
 
   function initParticles() {
     particles = [];
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - .5) * 0.4,
-        vy: (Math.random() - .5) * 0.4
-      });
+    particleCount = computeAdaptiveCount();
+    for (let i = 0; i < particleCount; i++) particles.push(makeParticle());
+  }
+
+  function topUpOrTrim() {
+    const target = computeAdaptiveCount();
+    if (target > particles.length) {
+      const toAdd = target - particles.length;
+      for (let i = 0; i < toAdd; i++) particles.push(makeParticle());
+    } else if (target < particles.length) {
+      particles.length = target;
     }
+    particleCount = target;
   }
 
   function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < particleCount; i++) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Draw dots
+    ctx.fillStyle = BASES.dotFill;
+    const r = BASES.dotSize * dpr;
+    for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
+
+      // Move
+      p.x += p.vx;
+      p.y += p.vy;
+
+      // Soft wrap
+      if (p.x < -20) p.x = w + 20;
+      if (p.x > w + 20) p.x = -20;
+      if (p.y < -20) p.y = h + 20;
+      if (p.y > h + 20) p.y = -20;
+
+      // Dot
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(102,176,216,0.25)';
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
       ctx.fill();
-      for (let j = i; j < particleCount; j++) {
-        const p2 = particles[j];
-        const dx = p.x - p2.x, dy = p.y - p2.y, dist = dx * dx + dy * dy;
-        if (dist < 1800) {
-          ctx.strokeStyle = 'rgba(102,176,216,0.21)';
-          ctx.lineWidth = 0.66;
+    }
+
+    // Draw links
+    const maxDist = BASES.linkDist * dpr;
+    const maxDist2 = maxDist * maxDist;
+    ctx.lineWidth = Math.max(0.5, 0.66 * dpr);
+    for (let i = 0; i < particles.length; i++) {
+      const a = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const b = particles[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const dist2 = dx * dx + dy * dy;
+        if (dist2 < maxDist2) {
+          const t = 1 - Math.sqrt(dist2) / maxDist;
+          ctx.strokeStyle = `rgba(102,176,216,${BASES.linkAlpha * t})`;
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
           ctx.stroke();
         }
       }
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
     }
+
     requestAnimationFrame(draw);
   }
 
-  window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
-  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-  window.addEventListener('resize', resize);
-  resize(); draw();
+  // Debounce helper
+  function debounce(fn, wait) {
+    let t;
+    return function() {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, arguments), wait);
+    };
+  }
+
+  const onResize = debounce(() => {
+    resizeCanvas();
+    topUpOrTrim();
+  }, 120);
+
+  function bootParticles() {
+    resizeCanvas();
+    initParticles();
+    requestAnimationFrame(draw);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') onResize();
+  });
+
+  window.addEventListener('resize', onResize);
+  bootParticles();
 
   // Resume modal controls
   function openResumeModal() {
@@ -580,7 +688,7 @@ h2 {
     if (m) m.style.display = 'none';
   }
 
-    // Close on Escape and when clicking the backdrop (safe version)
+  // Close on Escape and when clicking the backdrop
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeResumeModal();
   });
@@ -597,15 +705,17 @@ h2 {
     ibm.style.display = which === 'ibm' ? 'block' : 'none';
   }
 
-  // Make sure Quick View opens to Resume by default
+  // Quick View opens to Resume by default
   (function(){
     const original = window.openResumeModal;
     window.openResumeModal = function(){
       showPane('resume');
-      original.call(window);
+      if (typeof original === 'function') original.call(window);
+      else openResumeModal();
     };
   })();
 </script>
+
 
  <!-- Resume + IBM Certificate Quick View Modal -->
 <div id="resumeModal" style="
