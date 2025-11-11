@@ -255,6 +255,32 @@
       .tagline {font-size: 0.95rem;}
       nav div {gap: 8px;}
     }
+
+    /* ---------- Ambient Background Enhancements ---------- */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(900px 520px at 75% -10%, rgba(255, 192, 203, 0.06), transparent 60%),
+        radial-gradient(700px 420px at 10% 110%, rgba(102, 176, 216, 0.06), transparent 60%);
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(1200px 800px at 50% 50%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.28));
+    }
+
+    #blueprint, canvas {
+      filter: contrast(108%) brightness(102%);
+    }
 </style>
 </head>
 
